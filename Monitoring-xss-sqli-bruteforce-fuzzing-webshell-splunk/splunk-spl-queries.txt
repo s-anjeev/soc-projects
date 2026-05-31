@@ -1,0 +1,70 @@
+# Suspicious File Access in Uploads Directory (Non-Whitelisted Extension)
+index="web" sourcetype=access_combined
+| regex uri="(?i)^/dashboard/uploads/[^\"\s]+\.(?!png|jpg|jpeg|gif|pdf|doc|docx|txt|csv)([a-z0-9]+)(\?.*)?$"
+| stats 
+    count as suspicious_requests,
+    values(status) as status_codes
+    by _time clientip uri 
+| where suspicious_requests >= 1
+| sort - suspicious_requests
+
+
+
+# potential brute force 'too many failed attempts'
+index=web sourcetype=access_combined uri="/dashboard/login.php" method=POST
+| bin _time span=1m
+| stats count(eval(status=401)) as failed_attempts
+        count(eval(status=302)) as successful_logins
+        by _time clientip
+| where failed_attempts >= 5 
+| sort - failed_attempts
+
+
+# potential brute force 'successful login followed by too many failed attempts'
+index=web sourcetype=access_combined uri="/dashboard/login.php" method=POST
+| bin _time span=1m
+| stats count(eval(status=401)) as failed_attempts
+        count(eval(status=302)) as successful_logins
+        by _time clientip
+| where failed_attempts >= 5 AND successful_logins > 0 
+| sort - failed_attempts
+
+
+# Possible Directory Brute Force / Fuzzing Detected (High 404 Rate)
+index=web sourcetype=access_combined
+| bin _time span=1m
+| stats 
+    count(eval(status=404)) as not_found,
+    dc(uri) as unique_endpoints,
+    dc(useragent) as ua_count,
+    count as total_requests
+    by _time clientip
+| where not_found >= 20 AND unique_endpoints >= 15
+| sort - not_found
+
+
+# xss detection
+index="web" sourcetype=access_combined
+| bin _time span=5m
+| regex uri="(?i)(<script|javascript:|onerror=|onload=|alert\(|document\.cookie|<svg|<img)"
+| stats 
+    count as attempts,
+    dc(uri) as unique_payloads,
+    values(status) as status_codes
+    by _time clientip
+| where attempts >= 3 OR unique_payloads >= 3
+| sort - attempts
+
+
+# sql detection
+index="web" sourcetype=access_combined
+| eval decoded_uri=urldecode(uri)
+| bin _time span=5m
+| regex decoded_uri="(?i)(union\s+select|or\s+1=1|and\s+1=1|sleep\(|benchmark\(|information_schema|load_file|outfile|--|#|/\*)"
+| stats 
+    count as attempts,
+    dc(decoded_uri) as unique_payloads,
+    values(status) as status_codes
+    by _time clientip
+| where attempts >= 3 OR unique_payloads >= 3
+| sort - attempts
