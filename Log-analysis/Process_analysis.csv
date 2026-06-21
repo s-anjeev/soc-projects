@@ -1,0 +1,149 @@
+Account_Domain,Account_Name,ComputerName,Creator_Process_ID,Creator_Process_Name,EventCode,EventType,Keywords,LogName,Logon_ID,Mandatory_Label,Message,New_Process_ID,New_Process_Name,OpCode,Process_Command_Line,RecordNumber,Security_ID,SourceName,TaskCategory,Token_Elevation_Type,Type,_raw,_time,eventtype,host,index,linecount,punct,source,sourcetype,splunk_server,splunk_server_group,tag,tag::eventtype
+"EC2AMAZ-COTJ1IQ
+-","Administrator
+-",EC2AMAZ-COTJ1IQ,0x178,C:\Windows\System32\cmd.exe,4688,0,Audit Success,Security,"0x59841
+0x0",S-1-16-12288,"A new process has been created.
+
+Creator Subject:
+	Security ID:		S-1-5-21-109274136-1242102717-3399047385-500
+	Account Name:		Administrator
+	Account Domain:		EC2AMAZ-COTJ1IQ
+	Logon ID:		0x59841
+
+Target Subject:
+	Security ID:		S-1-0-0
+	Account Name:		-
+	Account Domain:		-
+	Logon ID:		0x0
+
+Process Information:
+	New Process ID:		0x1948
+	New Process Name:	C:\Windows\System32\notepad.exe
+	Token Elevation Type:	TokenElevationTypeDefault (1)
+	Mandatory Label:		S-1-16-12288
+	Creator Process ID:	0x178
+	Creator Process Name:	C:\Windows\System32\cmd.exe
+	Process Command Line:	notepad.exe  C:\tmp\hello.txt
+
+Token Elevation Type indicates the type of token that was assigned to the new process in accordance with User Account Control policy.
+
+Type 1 is a full token with no privileges removed or groups disabled.  A full token is only used if User Account Control is disabled or if the user is the built-in Administrator account or a service account.
+
+Type 2 is an elevated token with no privileges removed or groups disabled.  An elevated token is used when User Account Control is enabled and the user chooses to start the program using Run as administrator.  An elevated token is also used when an application is configured to always require administrative privilege or to always require maximum privilege, and the user is a member of the Administrators group.
+
+Type 3 is a limited token with administrative privileges removed and administrative groups disabled.  The limited token is used when User Account Control is enabled, the application does not require administrative privilege, and the user does not choose to start the program using Run as administrator.",0x1948,C:\Windows\System32\notepad.exe,Info,notepad.exe  C:\tmp\hello.txt,441452,"S-1-5-21-109274136-1242102717-3399047385-500
+S-1-0-0",Microsoft Windows security auditing.,Process Creation,TokenElevationTypeDefault (1),Information,"06/21/2026 10:49:43.683 PM
+LogName=Security
+EventCode=4688
+EventType=0
+ComputerName=EC2AMAZ-COTJ1IQ
+SourceName=Microsoft Windows security auditing.
+Type=Information
+RecordNumber=441452
+Keywords=Audit Success
+TaskCategory=Process Creation
+OpCode=Info
+Message=A new process has been created.
+
+Creator Subject:
+	Security ID:		S-1-5-21-109274136-1242102717-3399047385-500
+	Account Name:		Administrator
+	Account Domain:		EC2AMAZ-COTJ1IQ
+	Logon ID:		0x59841
+
+Target Subject:
+	Security ID:		S-1-0-0
+	Account Name:		-
+	Account Domain:		-
+	Logon ID:		0x0
+
+Process Information:
+	New Process ID:		0x1948
+	New Process Name:	C:\Windows\System32\notepad.exe
+	Token Elevation Type:	TokenElevationTypeDefault (1)
+	Mandatory Label:		S-1-16-12288
+	Creator Process ID:	0x178
+	Creator Process Name:	C:\Windows\System32\cmd.exe
+	Process Command Line:	notepad.exe  C:\tmp\hello.txt
+
+Token Elevation Type indicates the type of token that was assigned to the new process in accordance with User Account Control policy.
+
+Type 1 is a full token with no privileges removed or groups disabled.  A full token is only used if User Account Control is disabled or if the user is the built-in Administrator account or a service account.
+
+Type 2 is an elevated token with no privileges removed or groups disabled.  An elevated token is used when User Account Control is enabled and the user chooses to start the program using Run as administrator.  An elevated token is also used when an application is configured to always require administrative privilege or to always require maximum privilege, and the user is a member of the Administrators group.
+
+Type 3 is a limited token with administrative privileges removed and administrative groups disabled.  The limited token is used when User Account Control is enabled, the application does not require administrative privilege, and the user does not choose to start the program using Run as administrator.",2026-06-21T17:19:43.683+0000,,EC2AMAZ-COTJ1IQ,main,41,//_::._====-=___.===_=_==_____.\r\r_:\rt_:tt-------\rt,WinEventLog:Security,WinEventLog:Security,si-i-05090fa82c694c9e7.prd-p-pw5e8.splunkcloud.com,,,
+"EC2AMAZ-COTJ1IQ
+-","Administrator
+-",EC2AMAZ-COTJ1IQ,0x1260,C:\Windows\explorer.exe,4688,0,Audit Success,Security,"0x59841
+0x0",S-1-16-12288,"A new process has been created.
+
+Creator Subject:
+	Security ID:		S-1-5-21-109274136-1242102717-3399047385-500
+	Account Name:		Administrator
+	Account Domain:		EC2AMAZ-COTJ1IQ
+	Logon ID:		0x59841
+
+Target Subject:
+	Security ID:		S-1-0-0
+	Account Name:		-
+	Account Domain:		-
+	Logon ID:		0x0
+
+Process Information:
+	New Process ID:		0x178
+	New Process Name:	C:\Windows\System32\cmd.exe
+	Token Elevation Type:	TokenElevationTypeDefault (1)
+	Mandatory Label:		S-1-16-12288
+	Creator Process ID:	0x1260
+	Creator Process Name:	C:\Windows\explorer.exe
+	Process Command Line:	""C:\Windows\system32\cmd.exe"" 
+
+Token Elevation Type indicates the type of token that was assigned to the new process in accordance with User Account Control policy.
+
+Type 1 is a full token with no privileges removed or groups disabled.  A full token is only used if User Account Control is disabled or if the user is the built-in Administrator account or a service account.
+
+Type 2 is an elevated token with no privileges removed or groups disabled.  An elevated token is used when User Account Control is enabled and the user chooses to start the program using Run as administrator.  An elevated token is also used when an application is configured to always require administrative privilege or to always require maximum privilege, and the user is a member of the Administrators group.
+
+Type 3 is a limited token with administrative privileges removed and administrative groups disabled.  The limited token is used when User Account Control is enabled, the application does not require administrative privilege, and the user does not choose to start the program using Run as administrator.",0x178,C:\Windows\System32\cmd.exe,Info,"""C:\Windows\system32\cmd.exe""",441391,"S-1-5-21-109274136-1242102717-3399047385-500
+S-1-0-0",Microsoft Windows security auditing.,Process Creation,TokenElevationTypeDefault (1),Information,"06/21/2026 10:41:30.753 PM
+LogName=Security
+EventCode=4688
+EventType=0
+ComputerName=EC2AMAZ-COTJ1IQ
+SourceName=Microsoft Windows security auditing.
+Type=Information
+RecordNumber=441391
+Keywords=Audit Success
+TaskCategory=Process Creation
+OpCode=Info
+Message=A new process has been created.
+
+Creator Subject:
+	Security ID:		S-1-5-21-109274136-1242102717-3399047385-500
+	Account Name:		Administrator
+	Account Domain:		EC2AMAZ-COTJ1IQ
+	Logon ID:		0x59841
+
+Target Subject:
+	Security ID:		S-1-0-0
+	Account Name:		-
+	Account Domain:		-
+	Logon ID:		0x0
+
+Process Information:
+	New Process ID:		0x178
+	New Process Name:	C:\Windows\System32\cmd.exe
+	Token Elevation Type:	TokenElevationTypeDefault (1)
+	Mandatory Label:		S-1-16-12288
+	Creator Process ID:	0x1260
+	Creator Process Name:	C:\Windows\explorer.exe
+	Process Command Line:	""C:\Windows\system32\cmd.exe"" 
+
+Token Elevation Type indicates the type of token that was assigned to the new process in accordance with User Account Control policy.
+
+Type 1 is a full token with no privileges removed or groups disabled.  A full token is only used if User Account Control is disabled or if the user is the built-in Administrator account or a service account.
+
+Type 2 is an elevated token with no privileges removed or groups disabled.  An elevated token is used when User Account Control is enabled and the user chooses to start the program using Run as administrator.  An elevated token is also used when an application is configured to always require administrative privilege or to always require maximum privilege, and the user is a member of the Administrators group.
+
+Type 3 is a limited token with administrative privileges removed and administrative groups disabled.  The limited token is used when User Account Control is enabled, the application does not require administrative privilege, and the user does not choose to start the program using Run as administrator.",2026-06-21T17:11:30.753+0000,,EC2AMAZ-COTJ1IQ,main,41,//_::._====-=___.===_=_==_____.\r\r_:\rt_:tt-------\rt,WinEventLog:Security,WinEventLog:Security,si-i-05090fa82c694c9e7.prd-p-pw5e8.splunkcloud.com,,,
