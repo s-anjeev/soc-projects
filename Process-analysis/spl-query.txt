@@ -1,0 +1,9 @@
+# Detect Suspicious Process Creation
+index=main host="EC2AMAZ-COTJ1IQ" sourcetype="wineventlog:security" EventCode=4688
+| where NOT (
+    match(New_Process_Name,"(?i)^c:\\\\windows\\\\") OR
+    match(New_Process_Name,"(?i)^c:\\\\program files\\\\") OR
+    match(New_Process_Name,"(?i)^c:\\\\program files \(x86\)\\\\")
+)
+| table _time New_Process_Name Creator_Process_Name Process_Command_Line SubjectUserName
+

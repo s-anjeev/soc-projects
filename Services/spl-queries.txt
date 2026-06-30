@@ -1,0 +1,71 @@
+# NOTE --
+# I have tested and used these SPL queries on my local system. Some queries have been modified to suit my environment, so you may need to customize them based on your own log sources,
+
+1. Detect New Service Creation (Persistence & Lateral Movement)
+index=main host="EC2AMAZ-COTJ1IQ" sourcetype="wineventlog:security" EventCode=4697
+| where NOT (
+    match(Service_File_Name,"(?i)^c:\\\\windows\\\\") OR
+    match(Service_File_Name,"(?i)^c:\\\\program files\\\\") OR
+    match(Service_File_Name,"(?i)^c:\\\\program files \(x86\)\\\\")
+)
+| table _time Service_Name Service_File_Name Service_Account Account_Name
+
+
+index=main host="EC2AMAZ-COTJ1IQ" sourcetype="wineventlog:system" EventCode=7045 
+| where NOT (
+    match(Service_File_Name,"(?i)^c:\\\\windows\\\\") OR
+    match(Service_File_Name,"(?i)^c:\\\\program files\\\\") OR
+    match(Service_File_Name,"(?i)^c:\\\\program files \(x86\)\\\\")
+)
+| table _time Service_Name Service_File_Name Service_Account Account_Name
+
+
+
+# started stoped.
+index=main host="EC2AMAZ-COTJ1IQ" sourcetype="wineventlog:system" EventCode=7036
+
+
+
+2. Detect Service Registry Modifications
+index="sysmon" EventCode=13
+| regex TargetObject="(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\[^\\\\]+\\\\(ImagePath|Start|ObjectName)$"
+| table _time host Image User TargetObject Details
+
+
+4. Detect Service Start/Stop Abuse 
+index="main" host="EC2AMAZ-COTJ1IQ" EventCode=7036 Message="*WinDefend*"
+
+
+5. Detect PsExec and Impacket Activity
+index="main" EventCode=7045
+| eval service=lower(Service_Name)
+| search service IN ("psexesvc","remcomsvc","paexec","windefend2","securitycenteribm","wincheckdrvs")
+| table _time host Service_Name Service_File_Name Account_name
+
+
+6. Detect Suspicious Service Executables
+index=main host="EC2AMAZ-COTJ1IQ" sourcetype="wineventlog:security" EventCode=4688
+| where NOT (
+    match(New_Process_Name,"(?i)^c:\\\\windows\\\\") OR
+    match(New_Process_Name,"(?i)^c:\\\\program files\\\\") OR
+    match(New_Process_Name,"(?i)^c:\\\\program files \(x86\)\\\\")
+)
+| table _time host New_Process_Name Account_Name
+
+
+6. Detect Unusual Parent-Child Relationships
+index=main host="EC2AMAZ-COTJ1IQ" sourcetype="wineventlog:security" EventCode=4688
+Creator_Process_Name="*\\services.exe"
+(New_Process_Name="*\\cmd.exe"
+OR New_Process_Name="*\\powershell.exe"
+OR New_Process_Name="*\\wscript.exe"
+OR New_Process_Name="*\\cscript.exe"
+OR New_Process_Name="*\\rundll32.exe"
+OR New_Process_Name="*\\regsvr32.exe")
+
+
+7. Detect Service Account Abuse
+index=main sourcetype="wineventlog:security" EventCode=4624
+(Logon_Type=2 OR Logon_Type=10)
+(Account_Name="svc_*" OR Account_Name="*_svc")
+| table _time host Account_Name Logon_Type Source_Network_Address Workstation_Name
