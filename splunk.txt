@@ -1,0 +1,30 @@
+# ── Windows Event Logs (Security, System, Application) ──────────────────────
+[WinEventLog://Security]
+index     = main
+sourcetype = WinEventLog:Security
+disabled  = false
+renderXml = false
+
+[WinEventLog://System]
+index     = main
+sourcetype = WinEventLog:System
+disabled  = false
+
+[WinEventLog://Application]
+index     = main
+sourcetype = WinEventLog:Application
+disabled  = false
+
+
+[monitor://C:\xampp\apache\logs\access.log]
+disabled = false
+index = web
+sourcetype = access_combined
+
+[WinEventLog://Microsoft-Windows-Sysmon/Operational]
+disabled = 0
+index = sysmon
+renderXml = false
+sourcetype = sysmon
+
+
