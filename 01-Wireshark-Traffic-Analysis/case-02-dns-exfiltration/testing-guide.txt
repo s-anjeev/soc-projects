@@ -1,0 +1,58 @@
+Useful Wireshark Filters:
+
+Purpose	Filter
+All DNS	dns
+Requests only	dns.flags.response == 0
+Responses only	dns.flags.response == 1
+A records	dns.qry.type == 1
+AAAA records	dns.qry.type == 28
+TXT records	dns.qry.type == 16
+MX records	dns.qry.type == 15
+CNAME	dns.qry.type == 5
+Specific domain	dns.qry.name contains "example"
+Long subdomains	dns.qry.name matches "[A-Za-z0-9]{30,}" (Wireshark regex support varies by version)
+Specific client	ip.src == 192.168.1.10 && dns
+Specific DNS server	ip.dst == 8.8.8.8 && dns
+NXDOMAIN responses	dns.flags.rcode == 3
+Successful responses	dns.flags.rcode == 0
+
+
+
+A practical SOC investigation workflow:
+
+Identify the protocols in the PCAP.
+Identify the most active hosts.
+Review all DNS traffic.
+Look for high-frequency DNS queries.
+Identify repeated or unusual domains.
+Inspect subdomains for long or encoded-looking labels.
+Check DNS record types and response codes.
+Analyze timing, packet sizes, and communication patterns.
+Decode any suspected payloads.
+Reconstruct transferred data if fragmented.
+Confirm whether the activity represents DNS tunneling or another DNS anomaly.
+Extract IOCs and document findings.
+
+
+
+Document:
+
+Source IP
+Source MAC
+Hostname (if available)
+DNS server
+Malicious domain
+Queried FQDNs
+Encoded payload examples
+Record types
+Time range
+Total queries
+
+
+Determine:
+
+First DNS query
+First suspicious domain
+Number of requests
+Data transfer duration
+Last request
