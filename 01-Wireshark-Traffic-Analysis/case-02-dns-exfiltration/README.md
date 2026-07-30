@@ -56,7 +56,7 @@ The DNS filter was applied to filter out all DNS queries made by host.
     All 77 DNS queries targeted testdomain.com. Although the primary domain remained the same, every request used a different subdomain, each containing a long encoded string.
 
 Based on the investigation, 10.0.3.15 generated a total of 77 DNS A-record queries to the DNS server 103.165.206.238.
-![Screenshot]()
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/01-Wireshark-Traffic-Analysis/case-02-dns-exfiltration/images/dns.jpg)
 
 **Indicators of Compromise (IOCs)**
 
@@ -81,16 +81,16 @@ Based on the investigation, 10.0.3.15 generated a total of 77 DNS A-record queri
 ## Step 3 — UDP Stream Analysis
 
 UDP stream analysis was limited because each stream contained only a single DNS request, resulting in 77 separate UDP streams. After decoding and reconstructing the encoded subdomains, the extracted data was identified as a sensitive project file, confirming that the DNS queries were used for data exfiltration via DNS tunneling.
-![Screenshot]()
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/01-Wireshark-Traffic-Analysis/case-02-dns-exfiltration/images/decoded.jpg)
 
 ## Step 4 — Threat Intelligence Investigation
 
 **Investigation 1 — 103.165.206.238 on AbuseIPDB and VirusTotal**
 
 The destination IP address 103.165.206.238 was analyzed using multiple threat intelligence sources. VirusTotal reported a detection score of 14/91, indicating that several security vendors classify the IP as malicious or suspicious.
-![Screenshot]()
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/01-Wireshark-Traffic-Analysis/case-02-dns-exfiltration/images/ABUSED-IP-DB.jpg)
 Additionally, AbuseIPDB shows that the IP has been reported multiple times for abusive activity.
-![Screenshot]()
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/01-Wireshark-Traffic-Analysis/case-02-dns-exfiltration/images/virus-total.jpg)
 
 ## Findings Summary
 
