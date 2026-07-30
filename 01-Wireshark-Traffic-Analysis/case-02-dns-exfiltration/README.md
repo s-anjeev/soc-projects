@@ -56,6 +56,7 @@ The DNS filter was applied to filter out all DNS queries made by host.
     All 77 DNS queries targeted testdomain.com. Although the primary domain remained the same, every request used a different subdomain, each containing a long encoded string.
 
 Based on the investigation, 10.0.3.15 generated a total of 77 DNS A-record queries to the DNS server 103.165.206.238.
+![Screenshot]()
 
 **Indicators of Compromise (IOCs)**
 
@@ -76,4 +77,51 @@ Based on the investigation, 10.0.3.15 generated a total of 77 DNS A-record queri
 - Communication was unidirectional (client → server).
 - No DNS responses were received.
 - Repeated use of the same parent domain (alpha.testdomain.com).
+
+## Step 3 — UDP Stream Analysis
+
+UDP stream analysis was limited because each stream contained only a single DNS request, resulting in 77 separate UDP streams. After decoding and reconstructing the encoded subdomains, the extracted data was identified as a sensitive project file, confirming that the DNS queries were used for data exfiltration via DNS tunneling.
+![Screenshot]()
+
+## Step 4 — Threat Intelligence Investigation
+
+**Investigation 1 — 103.165.206.238 on AbuseIPDB and VirusTotal**
+
+The destination IP address 103.165.206.238 was analyzed using multiple threat intelligence sources. VirusTotal reported a detection score of 14/91, indicating that several security vendors classify the IP as malicious or suspicious.
+![Screenshot]()
+Additionally, AbuseIPDB shows that the IP has been reported multiple times for abusive activity.
+![Screenshot]()
+
+## Findings Summary
+
+|Finding  |	Detail |
+|--------------------|-----------------------------------------------------------------------------------|
+|Affected Host |	10.0.3.15|
+|Destination IP|	103.165.206.238|
+|Protocol|	DNS (UDP/53)|
+|Total DNS Queries|	77|
+|DNS Record Type|	A|
+|Primary Domain|	alpha.testdomain.com|
+|Subdomain Pattern|	Long, unique, high-entropy encoded subdomains|
+|Communication Pattern|	Unidirectional communication (client → server); no DNS responses received|
+|Packet Size|	All DNS requests were exactly 144 bytes|
+|Decoded Payload|	Sensitive project file reconstructed from encoded DNS subdomains|
+|Threat Intelligence|	VirusTotal: 14/91 detections; AbuseIPDB: Destination IP reported multiple times 
+for abusive activity|
+|Attack Technique|	DNS tunneling used for data exfiltration|
+|MITRE ATT&CK|	T1048.003 – Exfiltration Over Unencrypted/Obfuscated Non-C2 Protocol (DNS)|
+|Severity	| High|
+
+## Conclusion
+
+The investigation confirmed that 10.0.3.15 was used to exfiltrate data through DNS tunneling. The host generated 77 DNS A-record queries containing long, high-entropy encoded subdomains directed to 103.165.206.238. After decoding and reconstructing the DNS payloads, the transmitted data was identified as a sensitive project file. Threat intelligence further supported the findings, with the destination IP receiving multiple abuse reports and malicious detections
+
+## Recommended Actions
+
+- Immediately isolate the affected host (10.0.3.15) from the network.
+- Block communication with 103.165.206.238 and associated domains at the firewall and DNS resolver.
+- Perform a full malware scan and forensic investigation on the affected host.
+- Reset credentials if sensitive information may have been exposed.
+- Review DNS logs across the environment for similar high-entropy queries or communication with the same infrastructure.
+- Implement DNS monitoring and alerting for long or high-entropy subdomains and abnormal DNS query volumes.
 
