@@ -13,3 +13,6 @@ The analysis involved examining DNS queries, communication patterns, encoded sub
 
 - [View Case 02](https://github.com/s-anjeev/soc-projects/tree/main/01-Wireshark-Traffic-Analysis/case-02-dns-exfiltration)
     - [Download pcap](https://github.com/s-anjeev/soc-projects/blob/main/01-Wireshark-Traffic-Analysis/case-02-dns-exfiltration/logs/dns-tunneling-exfiltration.pcapng)
+
+
+### Case 03 — DNS Tunneling command and control.
