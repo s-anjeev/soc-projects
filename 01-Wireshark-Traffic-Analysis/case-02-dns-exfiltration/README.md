@@ -15,6 +15,7 @@ Analyze the provided PCAP file to identify DNS tunneling activity, confirm data 
 1. Wireshark
 2. Virustotal
 3. Abuseipdb
+4. cyberchef
 
 ## Dataset
 - File: dns-tunneling-exfiltration.pcap
