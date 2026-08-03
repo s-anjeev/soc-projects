@@ -20,5 +20,9 @@ The analysis involved examining DNS queries, communication patterns, encoded sub
 ### Case 03 — DNS Tunneling command and control.
 Investigate a DNS-based Command-and-Control (C2) attack by analyzing network traffic captured in a PCAP file.
 
-- [View Case 02]()
-    - [Download pcap]()
+- [View Case 02](https://github.com/s-anjeev/soc-projects/tree/main/01-Wireshark-Traffic-Analysis/case-03-c2-dns-tunneling)
+    - [Download pcap](https://github.com/s-anjeev/soc-projects/tree/main/01-Wireshark-Traffic-Analysis/case-03-c2-dns-tunneling/logs)
+
+
+### Case 04 —  ICMP Tunneling Data Exfiltration.                 <---               UPCOMING
+### CASE 05 — HTTP Based Data Exfiltration.                      <---               PENDING
