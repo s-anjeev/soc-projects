@@ -2,7 +2,6 @@
 
 ### Summary
 
-
 ### Scenario
 
 ### Objective
@@ -16,3 +15,6 @@
 
 ## Investigation Steps
 ### Step 1 — Initial Traffic Overview
+
+ - [Download pcap]()
+ ![Screenshot]()

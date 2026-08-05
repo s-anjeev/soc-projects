@@ -22,5 +22,9 @@ A phishing investigation in a real SOC typically involves:
 - Manual email header analysis
 
 # Cases
-## Case 01 — Suspicious Email Investigation
-## Case 02 — Suspicious Email Investigation
+## Case 01 — Malicious Attachment (Malware Delivery).
+A phishing email impersonates amazonaws.com by mimicking an AWS "Free Tier Usage Alert" notification was reported by an employee. The phishing email was sent using Emkei.cz, a publicly available email spoofing service and contained a malicious attachment.
+
+- [Download pcap]()
+
+## Case 02 — Suspicious Email Investigation (Credential Harvesting).
