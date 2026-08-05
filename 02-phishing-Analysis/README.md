@@ -27,4 +27,6 @@ A phishing email impersonates amazonaws.com by mimicking an AWS "Free Tier Usage
 
 - [View Case 1](https://github.com/s-anjeev/soc-projects/tree/main/02-phishing-Analysis/case-o1-malicious-email-attachment)
 
+
+
 ## Case 02 — Suspicious Email Investigation (Credential Harvesting).
