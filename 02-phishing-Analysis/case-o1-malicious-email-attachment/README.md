@@ -40,7 +40,7 @@ The strongest phishing indicator is the attachment itself. Legitimate AWS Free T
 
 The email failed DMARC (dmarc=fail) and had no valid SPF (spf=none) or DKIM (dkim=none) authentication. These results confirm that the sending server was not authorized to send emails on behalf of amazonaws.com, and the integrity and authenticity of the message could not be verified. Together, these authentication failures provide strong evidence of domain impersonation and indicate that the email is a phishing attempt.
 
-![Screenshot]()
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/02-phishing-Analysis/case-o1-malicious-email-attachment/images/security-headers.jpg)
 
 
 ## Step 3 — Email Header Analysis (sender, receiver, reply-to, )
@@ -49,14 +49,14 @@ The email claims to originate from "FreeTier" freetier@costalerts.amazonaws.com,
 
 Additionally, the email was received from emkei.cz (114.29.236.247) instead of AWS mail infrastructure. emkei.cz is a publicly available email spoofing/testing service that allows users to send emails with forged sender addresses. In this case, it appears to have been used to impersonate the AWS domain (costalerts.amazonaws.com), further reinforcing that the email is fraudulent.
 
-![Screenshot]()
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/02-phishing-Analysis/case-o1-malicious-email-attachment/images/email-headers.jpg)
 
 
 ## Step 4 — Email Attachment
 
 The attachment headers identify the file as a Windows executable (application/x-msdownload) named AWS_Billing_receipt.pdf.exe. The attacker uses a double extension (.pdf.exe) to disguise the executable as a PDF, increasing the likelihood that the victim will open it. This is a high-confidence indicator of a malware delivery attempt.
 
-![Screenshot]()
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/02-phishing-Analysis/case-o1-malicious-email-attachment/images/attachment.jpg)
 
 **Indicator Of Compromise IOCs**
 |IOCs |	Value|
@@ -71,6 +71,11 @@ The attachment headers identify the file as a Windows executable (application/x-
 
 
 ## Step 4 — Threat Intelligence Investigation
+
+**Sending IP/Domain Investigation**
+
+
+d41d8cd98f00b204e9800998ecf8427e
 
 ## Findings Summary
 include file hash
