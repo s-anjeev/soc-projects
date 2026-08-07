@@ -30,3 +30,6 @@ A phishing email impersonates amazonaws.com by mimicking an AWS "Free Tier Usage
 
 
 ## Case 02 — Suspicious Email Investigation (Credential Harvesting).
+A phishing email impersonating Microsoft was reported by an employee. The investigation confirmed the email was sent through a known malicious Tor exit node and contained a credential harvesting link.
+
+- [View Case 1](https://github.com/s-anjeev/soc-projects/tree/main/02-phishing-Analysis/case-o2-credential-harvesting)
