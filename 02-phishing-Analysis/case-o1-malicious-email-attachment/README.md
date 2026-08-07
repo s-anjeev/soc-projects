@@ -74,8 +74,8 @@ The attachment headers identify the file as a Windows executable (application/x-
 
 **Sending IP/Domain Investigation**
 - **Sender IP Address:** Investigation using AbuseIPDB showed 0% confidence of abuse with no reported malicious activity.
-
 - **Domain (emkei.cz):** Investigation in VirusTotal showed that 9 out of 91 security vendors classified the domain as suspicious.
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/02-phishing-Analysis/case-o1-malicious-email-attachment/images/domain.jpg)
 - **Attachment MD5 Hash:** The MD5 hash `d41d8cd98f00b204e9800998ecf8427e` had no detection history in VirusTotal. However, this alone should not be interpreted as evidence that the file is benign.
 - **Manual File Analysis:** Despite the absence of threat intelligence detections, manual analysis confirmed that the attachment is a malicious executable. This demonstrates that newly created or customized malware can evade reputation-based detection services.
 
