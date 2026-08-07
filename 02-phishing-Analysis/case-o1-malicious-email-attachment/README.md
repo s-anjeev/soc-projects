@@ -73,15 +73,49 @@ The attachment headers identify the file as a Windows executable (application/x-
 ## Step 4 — Threat Intelligence Investigation
 
 **Sending IP/Domain Investigation**
+- **Sender IP Address:** Investigation using AbuseIPDB showed 0% confidence of abuse with no reported malicious activity.
 
+- **Domain (emkei.cz):** Investigation in VirusTotal showed that 9 out of 91 security vendors classified the domain as suspicious.
+- **Attachment MD5 Hash:** The MD5 hash `d41d8cd98f00b204e9800998ecf8427e` had no detection history in VirusTotal. However, this alone should not be interpreted as evidence that the file is benign.
+- **Manual File Analysis:** Despite the absence of threat intelligence detections, manual analysis confirmed that the attachment is a malicious executable. This demonstrates that newly created or customized malware can evade reputation-based detection services.
 
-d41d8cd98f00b204e9800998ecf8427e
 
 ## Findings Summary
-include file hash
+| Category | Findings |
+|----------|----------|
+| **Phishing Assessment** | Confirmed phishing email impersonating **Amazon Web Services (AWS)** to deliver malware. |
+| **Social Engineering** | The attacker accurately replicated AWS branding, formatting, writing style, and account details to make the email appear legitimate. |
+| **Primary Indicator** | The email contained a malicious attachment (`AWS_Billing_Receipt.pdf.exe`). Legitimate AWS Free Tier alerts do not include attachments. |
+| **Email Authentication** | **SPF: none**, **DKIM: none**, **DMARC: fail** confirmed the sender was not authorized to send emails on behalf of `amazonaws.com`. |
+| **Header Analysis** | The **Reply-To** address (`bobtheattacker@proton.me`) did not match the claimed AWS sender, confirming email impersonation. |
+| **Sending Infrastructure** | The message originated from **emkei.cz**, a public email spoofing service, rather than legitimate AWS mail servers. |
+| **Attachment Analysis** | The attachment was a Windows executable (`application/x-msdownload`) disguised as a PDF using a double extension (`.pdf.exe`). |
+| **Threat Intelligence** | AbuseIPDB reported no abuse for the sender IP, while VirusTotal flagged `emkei.cz` by **9/91** security vendors. The attachment hash had no prior reputation or detection history. |
+| **Manual Analysis** | Manual analysis confirmed the attachment was malicious despite the absence of reputation-based detections, indicating a potentially new or customized malware sample. |
 
 ## MITRE ATT&CK Mapping
 
+| Tactic | Technique | ID | Justification |
+|--------|-----------|----|---------------|
+| Initial Access | Phishing: Spearphishing Attachment | T1566.001 | The attacker attempted to gain initial access by delivering a malicious executable disguised as a PDF attachment. |
+| Initial Access | Phishing | T1566 | The attack relied on a phishing email impersonating AWS to deceive the recipient. |
+| Defense Evasion | Masquerading | T1036 | The executable used a double extension (`.pdf.exe`) to appear as a legitimate PDF document. |
+| Defense Evasion | Match Legitimate Name or Location | T1036.005 | The attachment name (`AWS_Billing_Receipt.pdf.exe`) was chosen to resemble a legitimate AWS billing document. |
+| Resource Development | Acquire Infrastructure | T1583 | The attacker utilized external infrastructure (Emkei email spoofing service) to distribute the phishing email. |
+| Resource Development | Compromise or Spoof Accounts/Identity | T1585 / T1585.001* | The email spoofed the AWS sender identity (`freetier@costalerts.amazonaws.com`) to establish trust with the victim. |
+
 ## Conclusion
+The investigation confirmed a high-confidence phishing email impersonating AWS to deliver a malicious executable. Multiple indicators—including failed email authentication, spoofed infrastructure, a deceptive attachment, and manual analysis confirmed the email was malicious.
+
 ## Key Takeaways
+- Do not rely solely on threat intelligence or reputation scores.
+- Verify SPF, DKIM, and DMARC when investigating suspicious emails.
+- Inspect email headers to identify sender and Reply-To mismatches.
+- Treat executable attachments with double extensions (e.g., `.pdf.exe`) as highly suspicious.
+- Combine threat intelligence with manual analysis for accurate detection.
+
 ## Recommended Actions
+- Block the sender, source IP, Domain.
+- Quarantine or delete the phishing email from all mailboxes.
+- Submit the IOCs to security monitoring and threat intelligence platforms.
+- Educate users to verify unexpected attachments and report suspicious emails.
