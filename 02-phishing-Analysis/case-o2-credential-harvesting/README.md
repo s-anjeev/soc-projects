@@ -22,6 +22,38 @@ Analyse the suspicious email to determine whether it is a phishing attempt, iden
 
 ## Investigation Steps
 ## Step 1 — Email Content Review
+The initial review analyzed the email's content to identify the sender's intent and phishing indicators, including the sender address, domain legitimacy, urgency, branding, and requested user action.
 
- - [Download pcap]()
- ![Screenshot]()
+Initial email content review indicates that the sender is attempting to impersonate Microsoft. The email uses urgency and account-suspension threats, claiming that the recipient’s account will be suspended within 24 hours due to unusual activity. The recipient is instructed to restore access by verifying their account through a provided link, with a warning that failure to do so will result in permanent account termination.
+
+**Immediate red flags were identified:**
+ 1. From (Typosquatted):
+    `security@micros0ft-support.com`
+    The sender domain replaces the letter “o” in Microsoft with the number “0”, a common typosquatting technique used to create domains that visually resemble legitimate domains. The domain micros0ft-support.com is not an official Microsoft domain and has no legitimate association with Microsoft.
+
+2. Malicious Link:
+    `http://micros0ft-account-verify.ru/login?user=sarah.jones@securecore.com`
+    The URL uses the same typosquatting technique by replacing “o” with “0” in Microsoft. It also uses a .ru top-level domain rather than an official Microsoft domain.
+
+    Additionally, the victim's email address is included as a URL parameter: user=sarah.jones@securecore.com 
+
+    This indicates that the phishing page may have been customized for the specific recipient and suggests a targeted credential-harvesting attempt.
+
+3. Urgency and Fear Tactics:
+    - "Your account has been temporarily suspended"
+    - "Verify your identity within 24 hours"
+    - "Your account will be permanently deleted"
+
+    These statements create a false sense of urgency and pressure the recipient into acting without verifying the legitimacy of the email. This is a common social-engineering technique used in credential-phishing attacks.
+
+4. Inconsistent Email Structure:
+    The overall structure, wording, formatting, and link presentation do not match the typical communication style and formatting used by Microsoft. 
+    These inconsistencies, combined with the suspicious sender domain and malicious URL, further support the conclusion that the email is an impersonation-based phishing attempt.
+
+  ![Screenshot]()
+
+ ## Step 2 — Email Header Analysis
+
+
+
+ - [screenshot]()
