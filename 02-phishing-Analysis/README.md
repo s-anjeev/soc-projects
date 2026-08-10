@@ -22,18 +22,19 @@ A phishing investigation in a real SOC typically involves:
 - Manual email header analysis
 
 # Cases
-## Case 01 — Malicious Attachment (Malware Delivery).
-A phishing email impersonates amazonaws.com by mimicking an AWS "Free Tier Usage Alert" notification was reported by an employee. The phishing email was sent using Emkei.cz, a publicly available email spoofing service and contained a malicious attachment.
+## Case 01 — Malicious Attachment (Malware Delivery).  
+A phishing email impersonates amazonaws.com by mimicking an AWS "Free Tier Usage Alert" notification was reported by an employee. The phishing email was sent using Emkei.cz, a publicly available email spoofing service and contained a malicious attachment.  
 
 - [View Case 1](https://github.com/s-anjeev/soc-projects/tree/main/02-phishing-Analysis/case-o1-malicious-email-attachment)
 
 
-
-## Case 02 — Suspicious Email Investigation (Credential Harvesting).
+## Case 02 — Suspicious Email Investigation (Credential Harvesting).  
 A phishing email impersonating Microsoft was reported by an employee. The investigation confirmed the email was sent through a known malicious Tor exit node and contained a credential harvesting link.
 
-- [View Case 2](https://github.com/s-anjeev/soc-projects/tree/main/02-phishing-Analysis/case-o2-credential-harvesting)
+- [View Case 2](https://github.com/s-anjeev/soc-projects/tree/main/02-phishing-Analysis/case-o2-credential-harvesting)  
 
-## Case 03 — Suspicious Email Investigation (Credential Harvesting).
-your github password changed successfulyy please click here if its not you.
-redirection to malicious website / email is from genuan user.
+## Case 03 — Email Investigation (Payment Fraud).  
+An unexpected bank account change request was received from a client; investigation revealed that the client's legitimate business email account had been compromised and the request was initiated by an attacker.  
+
+- [View Case 3](https://github.com/s-anjeev/soc-projects/tree/main/02-phishing-Analysis/case-o3-Payment-fraud) 
+

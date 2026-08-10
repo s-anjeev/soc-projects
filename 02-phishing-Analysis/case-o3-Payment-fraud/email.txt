@@ -1,0 +1,50 @@
+From: Michael Anderson <michael.anderson@globaltech.com>
+To: finance@xyz.com
+Subject: Update to Banking Details for Future Payments
+Date: Mon, 10 Aug 2026 09:18:42 +0000
+Reply-To: michael.anderson@globaltech.com
+Message-ID: <20260810091842.7A21F4@globaltech.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+
+Received: from mail.globaltech.com (mail.globaltech.com [203.0.113.25])
+        by xyz.com with ESMTPS id A72F91C4
+        for <finance@xyz.com>;
+        Mon, 10 Aug 2026 09:18:45 +0000
+
+Authentication-Results: xyz.com;
+        spf=pass smtp.mailfrom=globaltech.com;
+        dkim=pass header.d=globaltech.com;
+        dmarc=pass header.from=globaltech.com;
+        arc=pass
+
+X-Mailer: Microsoft Outlook 16.0
+X-Originating-IP: 203.0.113.25
+
+
+Dear XYZ Finance Team,
+
+I hope you are doing well.
+
+Please note that our banking details have recently been updated.
+Kindly update your records and use the new account details for
+all future payments related to GlobalTech services.
+
+Updated Banking Details:
+
+Bank Name: First National Bank
+Account Name: GlobalTech Solutions Ltd.
+Account Number: 4589217634
+SWIFT Code: FNBLUS33
+Branch: New York Corporate Branch
+
+Please ensure that all future payments are directed to the
+account mentioned above.
+
+Please confirm once the changes have been made in your records.
+
+Best regards,
+
+Michael Anderson
+Business Development Manager
+GlobalTech
