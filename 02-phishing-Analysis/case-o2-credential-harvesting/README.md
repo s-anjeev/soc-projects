@@ -73,7 +73,7 @@ The X-Mailer value of PHPMailer 6.0 is particularly significant. Real Microsoft 
 The originating IP address 185.220.101.45 identified in the email headers was submitted to AbuseIPDB for reputation analysis.  
 
 What to look for: Confidence score, total reports, distinct reporting sources, IP type, ISP classification and attack categories in the report history.  
- ![screenshot]()
+ ![screenshot](https://github.com/s-anjeev/soc-projects/blob/main/02-phishing-Analysis/case-o2-credential-harvesting/image/ip-test.png)
 
 A 100% confidence score with over 6,500 reports from 595 different organisations is about as confirmed malicious as an IP can get. Attacker deliberately routed the email through the Tor anonymity network to hide their real location and identity.
 
@@ -103,7 +103,7 @@ This is a classic example of why threat intelligence tools must be used together
 | X-Mailer | `PHPMailer 6.0` | **Suspicious — bulk phishing tool** |
 
 
-### MITRE ATT&CK Mapping
+# MITRE ATT&CK Mapping
 | **Technique** | **Technique ID** | **What was observed** |
 |---|---|---|
 | Phishing | T1566.002 | A spearphishing link was sent to a specific employee targeting their Microsoft credentials |
@@ -111,7 +111,7 @@ This is a classic example of why threat intelligence tools must be used together
 | Hide Infrastructure | T1665 | The email was routed through a Tor exit node to anonymise the attacker's real location |
 | Credentials from Web Browsers | T1555.003 | The phishing page was designed to capture Microsoft account credentials |
 
-### Conclusion
+# Conclusion
 
 The investigation confirmed a targeted credential phishing attack against a SecureCode Ltd employee. The attacker impersonated Microsoft using a typosquatted domain, urgency tactics, and a Russian-hosted credential harvesting page.  
 
@@ -119,7 +119,7 @@ The email originated from a known malicious Tor exit node, indicating deliberate
 
 The combination of typosquatting, suspicious infrastructure, Tor routing, and credential harvesting behavior provides strong evidence of a phishing attack. Any credentials entered through the phishing page should be treated as compromised. 
 
-### Key Takeaways
+# Key Takeaways
 - Always check the sender domain carefully — one character difference can mean the difference between legitimate and phishing
 - SPF, DKIM and DMARC failures on an email claiming to be from a major company are immediate red flags
 - A sending IP routed through Tor indicates a sophisticated attacker deliberately hiding their identity
@@ -127,7 +127,7 @@ The combination of typosquatting, suspicious infrastructure, Tor routing, and cr
 - Urgency and fear are the most powerful phishing tools — teach employees to slow down when an email pressures them to act immediately
 - Always check multiple data points together — no single tool tells the complete story
 
-### Recommended Actions
+# Recommended Actions
 - Block the sending domain micros0ft-support.com at the email gateway
 - Block the phishing domain micros0ft-account-verify.ru at the firewall
 - Block the sending IP 185.220.101.45 at the perimeter
