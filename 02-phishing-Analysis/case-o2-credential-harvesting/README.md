@@ -31,13 +31,13 @@ Initial email content review indicates that the sender is attempting to imperson
     `security@micros0ft-support.com`  
     The sender domain replaces the letter “o” in Microsoft with the number “0”, a common typosquatting technique used to create domains that visually resemble legitimate domains. The domain micros0ft-support.com is not an official Microsoft domain and has no legitimate association with Microsoft.
 
-2. Malicious Link.
-    `http://micros0ft-account-verify.ru/login?user=sarah.jones@securecore.com`
-    The URL uses the same typosquatting technique by replacing “o” with “0” in Microsoft. It also uses a .ru top-level domain rather than an official Microsoft domain.
+2. Malicious Link.  
+    `http://micros0ft-account-verify.ru/login?user=sarah.jones@securecore.com`  
+    The URL uses the same typosquatting technique by replacing “o” with “0” in Microsoft. It also uses a .ru top-level domain rather than an official Microsoft domain.  
 
-    Additionally, the victim's email address is included as a URL parameter: user=sarah.jones@securecore.com 
+    Additionally, the victim's email address is included as a URL parameter: `user=sarah.jones@securecore.com `  
 
-    This indicates that the phishing page may have been customized for the specific recipient and suggests a targeted credential-harvesting attempt.
+    This indicates that the phishing page may have been customized for the specific recipient and suggests a targeted credential-harvesting attempt.  
 
 3. Urgency and Fear Tactics
     - "Your account has been temporarily suspended"
@@ -48,9 +48,9 @@ Initial email content review indicates that the sender is attempting to imperson
 
 4. Inconsistent Email Structure
     The overall structure, wording, formatting, and link presentation do not match the typical communication style and formatting used by Microsoft. 
-    These inconsistencies, combined with the suspicious sender domain and malicious URL, further support the conclusion that the email is an impersonation-based phishing attempt.
+    These inconsistencies, combined with the suspicious sender domain and malicious URL, further support the conclusion that the email is an impersonation-based phishing attempt.  
 
-  ![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/02-phishing-Analysis/case-o2-credential-harvesting/image/03-phishing-email-content.png)
+  ![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/02-phishing-Analysis/case-o2-credential-harvesting/image/03-phishing-email-content.png)  
 
  ## Step 2 — Email Header Analysis
 
