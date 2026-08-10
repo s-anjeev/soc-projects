@@ -1,5 +1,5 @@
 From: Michael Anderson <michael.anderson@globaltech.com>
-To: finance@xyz.com
+To: finance@oliva.com
 Subject: Update to Banking Details for Future Payments
 Date: Mon, 10 Aug 2026 09:18:42 +0000
 Reply-To: michael.anderson@globaltech.com
@@ -8,11 +8,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 
 Received: from mail.globaltech.com (mail.globaltech.com [203.0.113.25])
-        by xyz.com with ESMTPS id A72F91C4
-        for <finance@xyz.com>;
+        by oliva.com with ESMTPS id A72F91C4
+        for <finance@oliva.com>;
         Mon, 10 Aug 2026 09:18:45 +0000
 
-Authentication-Results: xyz.com;
+Authentication-Results: oliva.com;
         spf=pass smtp.mailfrom=globaltech.com;
         dkim=pass header.d=globaltech.com;
         dmarc=pass header.from=globaltech.com;
@@ -22,7 +22,7 @@ X-Mailer: Microsoft Outlook 16.0
 X-Originating-IP: 203.0.113.25
 
 
-Dear XYZ Finance Team,
+Dear oliva Finance Team,
 
 I hope you are doing well.
 
