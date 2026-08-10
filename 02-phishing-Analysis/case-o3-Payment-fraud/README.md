@@ -30,13 +30,13 @@ There were also no apparent signs of typosquatting, as the email originated from
 ## Step 3 — Email Header Analysis
 The email headers did not show any obvious red flags. SPF, DKIM, and DMARC all passed, and the email was sent through the client's legitimate mail infrastructure.  
 
-## 4 — Business Process Verification
+## Step 4 — Business Process Verification
 - The predefined process for changing banking information was not followed.
 - The sender's role did not authorize them to initiate or approve banking-information changes.
 - No prior approval or authorized change request was found.
 - The requested banking details did not match the vendor's existing records.
 
-## 5 — Client Confirmation & Request Validation
+## Step 5 — Client Confirmation & Request Validation
 
 During communication with the client, they denied making the request and asked us not to process the banking change while they investigate the incident internally.  
 
