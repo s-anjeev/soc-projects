@@ -27,11 +27,11 @@ The initial review analyzed the email's content to identify the sender's intent 
 Initial email content review indicates that the sender is attempting to impersonate Microsoft. The email uses urgency and account-suspension threats, claiming that the recipient’s account will be suspended within 24 hours due to unusual activity. The recipient is instructed to restore access by verifying their account through a provided link, with a warning that failure to do so will result in permanent account termination.
 
 **Immediate red flags were identified:**
- 1. From (Typosquatted)
-    `security@micros0ft-support.com`
+ 1. From (Typosquatted).  
+    `security@micros0ft-support.com`  
     The sender domain replaces the letter “o” in Microsoft with the number “0”, a common typosquatting technique used to create domains that visually resemble legitimate domains. The domain micros0ft-support.com is not an official Microsoft domain and has no legitimate association with Microsoft.
 
-2. Malicious Link
+2. Malicious Link.
     `http://micros0ft-account-verify.ru/login?user=sarah.jones@securecore.com`
     The URL uses the same typosquatting technique by replacing “o” with “0” in Microsoft. It also uses a .ru top-level domain rather than an official Microsoft domain.
 
