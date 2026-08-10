@@ -53,7 +53,86 @@ Initial email content review indicates that the sender is attempting to imperson
   ![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/02-phishing-Analysis/case-o2-credential-harvesting/image/03-phishing-email-content.png)  
 
  ## Step 2 — Email Header Analysis
+Beyond the visible content every email contains hidden technical headers that reveal where it actually came from and how it was sent. These headers were analysed to trace the sending infrastructure.  
+
+What to look for: The originating IP address, the mail server used, the X-Mailer field and any authentication results showing SPF, DKIM and DMARC status.  
+
+**Findings**  
+|Header	| Value	 | Significance|
+|--------|---------|---------------|
+|X-Originating-IP|	185.220.101.45|	The actual IP the email was sent from|
+|Received|	mail.micros0ft-support.com|	Fake mail server matching the typosquatted domain|
+|X-Mailer|	PHPMailer 6.0|	Bulk email tool commonly used in phishing campaigns|
+|Reply-To|	noreply@micros0ft-support.com|	Different from From address — classic phishing indicator|
+  
+
+The X-Mailer value of PHPMailer 6.0 is particularly significant. Real Microsoft emails are sent through Microsoft's own enterprise email infrastructure. PHPMailer is a PHP library used to send emails from web servers — commonly used by attackers to automate bulk phishing campaigns cheaply and quickly.
 
 
+## Step 3 — Sending IP Investigation  
+The originating IP address 185.220.101.45 identified in the email headers was submitted to AbuseIPDB for reputation analysis.  
 
- - [screenshot]()
+What to look for: Confidence score, total reports, distinct reporting sources, IP type, ISP classification and attack categories in the report history.  
+ ![screenshot]()
+
+A 100% confidence score with over 6,500 reports from 595 different organisations is about as confirmed malicious as an IP can get. Attacker deliberately routed the email through the Tor anonymity network to hide their real location and identity.
+
+## Step 4 — Phishing Link Analysis
+The malicious URL contained in the email was submitted to VirusTotal for reputation analysis. The URL was never clicked — it was checked safely through VirusTotal's URL scanning service.  
+
+What to look for: Vendor detection count, URL category, domain reputation and any related malicious files or URLs associated with the domain.  
+
+**Finding:** VirusTotal returned 0 detections from 96 vendors for the phishing URL. However this result does not clear the URL.  
+
+- The domain was brand new and had no prior reputation in vendor databases
+- The domain uses typosquatting — zero instead of O in Microsoft
+- The .ru TLD has no legitimate association with Microsoft
+- The /login path strongly suggests a credential harvesting page
+- The URL contains the victim's email as a parameter confirming targeting
+
+This is a classic example of why threat intelligence tools must be used together rather than relying on any single result. 
+
+
+**IOC Summary**
+| IOC Type | Value | Verdict |
+|---|---|---|
+| Sender domain | `micros0ft-support.com` | **Malicious — typosquatting** |
+| Sending IP | `185.220.101.45` | **Malicious — 100% confidence Tor exit node** |
+| Phishing URL | [http://micros0ft-account-verify.ru/login](http://micros0ft-account-verify.ru/login) | **Malicious — credential harvesting page** |
+| Reply-To | [noreply@micros0ft-support.com](mailto:noreply@micros0ft-support.com) | **Suspicious — matches fake domain** |
+| X-Mailer | `PHPMailer 6.0` | **Suspicious — bulk phishing tool** |
+
+
+### MITRE ATT&CK Mapping
+| **Technique** | **Technique ID** | **What was observed** |
+|---|---|---|
+| Phishing | T1566.002 | A spearphishing link was sent to a specific employee targeting their Microsoft credentials |
+| Acquire Infrastructure | T1583 | The attacker registered a typosquatted domain to host the credential harvesting page |
+| Hide Infrastructure | T1665 | The email was routed through a Tor exit node to anonymise the attacker's real location |
+| Credentials from Web Browsers | T1555.003 | The phishing page was designed to capture Microsoft account credentials |
+
+### Conclusion
+
+The investigation confirmed a targeted credential phishing attack against a SecureCode Ltd employee. The attacker impersonated Microsoft using a typosquatted domain, urgency tactics, and a Russian-hosted credential harvesting page.  
+
+The email originated from a known malicious Tor exit node, indicating deliberate anonymisation. The clean VirusTotal result for the URL demonstrates that reputation-based tools alone are insufficient for detecting newly created phishing infrastructure.  
+
+The combination of typosquatting, suspicious infrastructure, Tor routing, and credential harvesting behavior provides strong evidence of a phishing attack. Any credentials entered through the phishing page should be treated as compromised. 
+
+### Key Takeaways
+- Always check the sender domain carefully — one character difference can mean the difference between legitimate and phishing
+- SPF, DKIM and DMARC failures on an email claiming to be from a major company are immediate red flags
+- A sending IP routed through Tor indicates a sophisticated attacker deliberately hiding their identity
+- A clean VirusTotal URL result does not clear a link — newly registered phishing domains specifically avoid reputation databases
+- Urgency and fear are the most powerful phishing tools — teach employees to slow down when an email pressures them to act immediately
+- Always check multiple data points together — no single tool tells the complete story
+
+### Recommended Actions
+- Block the sending domain micros0ft-support.com at the email gateway
+- Block the phishing domain micros0ft-account-verify.ru at the firewall
+- Block the sending IP 185.220.101.45 at the perimeter
+- Check mail server logs to confirm no other employees received the same email
+- Ask Sarah whether she clicked the link or entered any credentials
+- If credentials were entered treat them as compromised and reset immediately
+- Submit the phishing domain to Microsoft for takedown
+- Send a security awareness alert to all employees about this phishing campaign
