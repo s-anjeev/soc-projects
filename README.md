@@ -13,6 +13,5 @@ If you find my profile, skills, experience, and projects aligned with your requi
 
 **Mobile:** 7876821051  
 **Email:** sanjeevkumar25857@gmail.com  
-**Resume:** 
-- [Resume](https://github.com/s-anjeev/soc-projects/tree/main/00-resume)  
+**Resume:** [Resume](https://github.com/s-anjeev/soc-projects/tree/main/00-resume)  
 
