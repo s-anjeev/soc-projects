@@ -11,8 +11,8 @@ Each project in this portfolio was selected to gain hands-on experience investig
 ## Contact
 If you find my profile, skills, experience, and projects aligned with your requirements, please feel free to reach out. I’m currently open to and looking for the best opportunities where I can apply my cybersecurity and SOC experience, contribute to an organization’s security, and continue growing as a security professional.  
 
-Mobile: 7876821051
-Email: sanjeevkumar25857@gmail.com 
-Resume: 
-- [resume]() 
+**Mobile:** 7876821051  
+**Email:** sanjeevkumar25857@gmail.com  
+**Resume:** 
+- [Resume](https://github.com/s-anjeev/soc-projects/tree/main/00-resume/Sanjeev-Kumar-SOC-L1-Resume.pdf)    
 
