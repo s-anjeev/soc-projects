@@ -10,7 +10,7 @@ Threat Intelligence matters because it helps security teams understand threats, 
 Without threat intelligence, a SOC may see an IP address, domain, hash, or suspicious process but have little context about whether it is actually malicious.  
 
 **With CTI, the SOC can enrich that data and determine:**
-- What is it?
+- What is it?  
     What does this IP, domain, hash, URL, or other indicator represent?
-- Who is behind it?
+- Who is behind it?  
     Can it be associated with a threat actor, group, malware operator, or campaign?
