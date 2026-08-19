@@ -13,4 +13,25 @@ Without threat intelligence, a SOC may see an IP address, domain, hash, or suspi
 - What is it?  
     What does this IP, domain, hash, URL, or other indicator represent?
 - Who is behind it?  
-    Can it be associated with a threat actor, group, malware operator, or campaign?
+- What is their intent?  
+- How likely is it to be malicious?  
+- How dangerous is it? 
+- Have we seen it before?
+- Has anyone else seen it?
+
+### Tools
+1. VirusTotal — checks domains, IPs, URLs and file hashes against over 90 security vendors simultaneously and provides community-sourced intelligence about known threats.  
+
+2. AbuseIPDB — a community database where security teams around the world report malicious IP addresses. Searching an IP here shows how many times it has been reported, what type of attacks it was involved in, and when it was last seen.  
+
+# Cases
+## Case 01 — Domain Analysis
+The domain domain.com, identified during Wireshark traffic analysis, was submitted to VirusTotal for reputation analysis and further contextual enrichment.  
+- [View case 1]()
+
+## Case 02 — IP Reputation Analysis
+- [View case 2]()
+## Case 03 — File Hash Investigation
+- [View case 3]()
+## Case 03 — URL Analysis
+- [View case 4]()
