@@ -36,7 +36,7 @@ The IP address 193.163.125.218 was searched on AbuseIPDB to retrieve its full re
 
 The screenshot below shows the full AbuseIPDB report for 193.163.125.218 including the confidence score, report count and IP information.   
 
-![Screenshot]()
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/04-Threat-Intelligence/case-02-IP-Reputation-Analysis/images/ip-1.png)
 
 ## Step 2 — Interpret the Results
 The confidence score for this IP address being malicious is 100%. The IP has been reported more than 4,300 times by 336 distinct sources, indicating a strong history of involvement in malicious activities. The results of this analysis strengthen the assessment that the presence of this IP address in the corporate network is malicious and requires appropriate actions.   
