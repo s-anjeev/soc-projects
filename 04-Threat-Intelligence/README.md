@@ -32,7 +32,10 @@ The domain dl.myresult.co.za, identified during Wireshark traffic analysis, was 
 - [View case 1](https://github.com/s-anjeev/soc-projects/tree/main/04-Threat-Intelligence/case-01-Domain-analysis)
 
 ## Case 02 — IP Reputation Analysis
-- [View case 2]()
+A suspecious IP address was investigated using public threat intelligence platforms such as VirusTotal and AbuseIPDB to assess its reputation, confidence scores, abuse reports, attack categories, and recent malicious activity.
+- [View case 2](https://github.com/s-anjeev/soc-projects/tree/main/04-Threat-Intelligence/case-02-IP-Reputation-Analysis)
+
+
 ## Case 03 — File Hash Investigation
 - [View case 3]()
 ## Case 03 — URL Analysis
