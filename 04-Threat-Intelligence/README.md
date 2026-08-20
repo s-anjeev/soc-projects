@@ -24,9 +24,11 @@ Without threat intelligence, a SOC may see an IP address, domain, hash, or suspi
 
 2. AbuseIPDB — a community database where security teams around the world report malicious IP addresses. Searching an IP here shows how many times it has been reported, what type of attacks it was involved in, and when it was last seen.  
 
+3. URLhaus — is a community-driven threat intelligence platform operated by abuse.ch that collects and shares malicious URLs used for malware distribution.
+
 # Cases
 ## Case 01 — Domain Analysis
-The domain domain.com, identified during Wireshark traffic analysis, was submitted to VirusTotal for reputation analysis and further contextual enrichment.  
+The domain dl.myresult.co.za, identified during Wireshark traffic analysis, was submitted to VirusTotal for reputation analysis and further contextual enrichment.  
 - [View case 1]()
 
 ## Case 02 — IP Reputation Analysis
