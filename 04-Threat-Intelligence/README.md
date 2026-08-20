@@ -29,7 +29,7 @@ Without threat intelligence, a SOC may see an IP address, domain, hash, or suspi
 # Cases
 ## Case 01 — Domain Analysis
 The domain dl.myresult.co.za, identified during Wireshark traffic analysis, was submitted to VirusTotal for reputation analysis and further contextual enrichment.  
-- [View case 1]()
+- [View case 1](https://github.com/s-anjeev/soc-projects/tree/main/04-Threat-Intelligence/case-01-Domain-analysis)
 
 ## Case 02 — IP Reputation Analysis
 - [View case 2]()
