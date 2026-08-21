@@ -37,6 +37,9 @@ A suspecious IP address was investigated using public threat intelligence platfo
 
 
 ## Case 03 — File Hash Investigation
+Investigation of a file hash using VirusTotal including vendor detection results and sandbox behavior analysis.   
 - [View case 3]()
+
+
 ## Case 03 — URL Analysis
 - [View case 4]()
