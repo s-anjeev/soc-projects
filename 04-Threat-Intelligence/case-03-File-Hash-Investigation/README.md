@@ -44,8 +44,86 @@ The MD5 hash of the file was submitted to VirusTotal for analysis against securi
     
 
 The screenshot below shows the full detection results across all 66 vendors with 64 returning malicious verdicts.   
-![Screenshot]()
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/04-Threat-Intelligence/case-03-File-Hash-Investigation/images/v-1.png)
 
 ## Step 2 — Review File Details
+The Details tab was checked for additional information about the file including its properties, known names and any related files or URLs.   
+
+**What to look for:** The Details tab shows the full file metadata including all hash types, file type, creation date and any names the file has been seen under. This helps confirm the file identity and find related threats.   
+
+**Finding:** The Details tab confirmed the file properties and showed additional hash values for cross-referencing across different threat intelligence platforms. The file was identified as a standard EICAR test string distributed by Offensive Security for antivirus testing purposes.   
+
+The screenshot below shows the file details including hash values and file properties.   
+![Screenshot](https://github.com/s-anjeev/soc-projects/blob/main/04-Threat-Intelligence/case-03-File-Hash-Investigation/images/v-2.png)
+
+## Step 3 — Analyse Sandbox Behavior
+The Behavior tab was reviewed to understand what the file actually does when executed. Multiple sandboxes ran the file in isolated environments and recorded every action it performed.   
+
+What to look for: The sandbox detections, behavior tags, dropped files and network communications sections all reveal what the file does when it runs. Evasion techniques are particularly important — files that detect sandbox environments and behave differently are more sophisticated threats that are harder to analyse.   
+
+Finding: The Behavior tab revealed detailed sandbox analysis from 8 different environments:  
+**Sandbox Detections:**
+| **Sandbox**   | **Verdict**              |
+|---------------|--------------------------|
+| Zenbox        | MALWARE TROJAN           |
+| Lastline      | MALWARE TROJAN           |
+| OS X Sandbox  | MALWARE TROJAN EVADER    |    
+
+The EVADER classification from OS X Sandbox is significant — it means the file detected it was being analysed and attempted to behave differently to avoid detection.   
+
+**Behavior Tags:**
+| **Tag**                  | **What It Means**                                                       |
+|--------------------------|-------------------------------------------------------------------------|
+| `checks-cpu-name`        | Checks the processor name, which can be used to detect virtual machines. |
+| `detect-debug-environment` | Checks whether the file is being analyzed by a debugger or security tool. |
+| `direct-cpu-clock-access` | Accesses the CPU clock directly to detect sandbox timing or analysis environments. |
+| `long-sleep`             | Delays execution to potentially wait for automated sandbox analysis to finish. |
+| `sets-process-name`      | Changes its process name to make identification or monitoring more difficult. |
+
+**Activity Summary:**
+| **Category**            | **Count**        |
+|-------------------------|------------------|
+| **MITRE Signatures**    | 6 Low, 46 High   |
+| **Dropped Files**       | 9 total          |
+| **Network Communications** | 30 DNS, 24 IP, 2 URL |
+
+The 46 high severity MITRE signature matches indicate the file performs a wide range of techniques associated with malware behaviour across multiple attack categories.   
 
 
+## Findings Summary
+
+| **Field**              | **Details**                                      |
+|------------------------|--------------------------------------------------|
+| **IOC**                | `44d88612fea8a8f36de82e1278abb02f`               |
+| **IOC Type**           | File Hash (MD5)                                  |
+| **File Name**          | `eicar.com`                                       |
+| **Vendor Detections**  | 64 out of 66                                      |
+| **Community Score**    | 3727                                              |
+| **Threat Categories**  | Virus, Trojan                                     |
+| **Sandbox Verdicts**   | Malware Trojan, Malware Trojan Evader            |
+| **Evasion Techniques** | Sandbox detection, long sleep, CPU clock access  |
+| **Network Activity**   | 30 DNS queries, 24 IP connections, 2 URLs        |
+| **Overall Assessment** | EICAR test file — not actual malware             |
+
+
+## MITRE ATT&CK Mapping
+
+| **Tactic**           | **Technique ID** | **Technique**                         | **What Was Observed**                                      |
+|----------------------|------------------|---------------------------------------|------------------------------------------------------------|
+| **Execution**        | `T1059`          | Command and Scripting Interpreter     | Code execution was observed during sandbox analysis.       |
+| **Defense Evasion**  | `T1497`          | Virtualization/Sandbox Evasion        | Sandbox detection, CPU checks, and long sleep delays were observed. |
+| **Discovery**        | `T1082`          | System Information Discovery          | The file checked system information, including CPU details. |
+| **Command and Control** | `T1071`       | Application Layer Protocol             | DNS queries and IP connections were observed during sandbox execution. |
+| **Persistence**      | `T1547`          | Boot or Logon Autostart Execution      | Persistence-related behavior was reported during sandbox analysis. |
+
+
+## Conclusion
+The investigation identified the file eicar.com using the MD5 hash 44d88612fea8a8f36de82e1278abb02f. Although VirusTotal reported a high number of detections and sandbox engines classified the file as malicious, the file was identified as the EICAR Antivirus Test File, which is intentionally designed to trigger antivirus and security products.   
+
+## Key Takeaways
+- File hashes let you identify known malware without running the file — always hash suspicious files before doing anything else with them
+- A high detection count across many vendors is strong confirmation of malicious activity
+- The Behavior tab is more powerful than the Detection tab — it shows what the file actually does not just whether vendors flag it
+- Sandbox evasion techniques indicate a more sophisticated threat — files that detect analysis environments require more careful handling
+- Always check all three tabs on VirusTotal — Detection, Details and Behavior together give the complete picture
+- File hash analysis connects directly to incident response — knowing what a file does helps you understand the full scope of a breach
