@@ -14,3 +14,56 @@ The goal is to establish centralized visibility into Windows Security Events, Sy
 Ensure Windows Security, Sysmon, and Apache logs from the new production server are properly ingested into Splunk SIEM before the server goes public.  
 
 
+## Install Splunk Universal Forwarder
+The Splunk Universal Forwarder (UF) is a lightweight agent installed on servers or endpoints to collect and forward log data to Splunk. It is commonly used to send Windows Event Logs, Sysmon logs, application logs, and other machine-generated data to a central Splunk instance.   
+
+`inputs.conf` is a key Splunk configuration file that defines what data the Universal Forwarder should collect and where that data comes from.  
+
+
+The Splunk Universal Forwarder can be downloaded directly from the official Splunk website.   
+During installation, the Splunk Universal Forwarder must be configured with the destination where the collected logs will be forwarded. This includes specifying the Splunk receiving server/hostname and the receiving port.   
+![img]()  
+
+Set up username and password when prompted.  
+![img]()  
+
+
+## Configuring inputs.conf
+By default, inputs.conf may not exist in the local directory, so we create it manually at: `C:\Program Files\SplunkUniversalForwarder\etc\system\local\inputs.conf`  
+
+The purpose of this configuration is to define which Windows logs should be collected, where they should be sent, and how Splunk should identify the incoming data. This allows us to control exactly what data is collected from the workstation and forwarded to our Splunk environment.  
+
+Here is the inputs.conf configuration used in this lab:  
+`[WinEventLog://Security]
+index = winserver
+disabled = false
+
+[WinEventLog://System]
+index = winserver
+disabled = false
+
+[WinEventLog://Application]
+index = winserver
+disabled = false`
+
+This configuration means I am ingesting Security, System, and Application Windows Event Logs into the `winserver` index of my Splunk Cloud instance for centralized monitoring and analysis.   
+
+## Installing the Splunk Cloud Universal Forwarder Credentials Package
+After installing the Universal Forwarder, we download the Universal Forwarder credentials package from the Splunk Cloud instance. This package configures the Forwarder with the necessary connection details and certificates required to securely send data to Splunk Cloud.   
+
+After downloading the package, a file named splunkclouduf.spl is saved to the system.  
+
+Open PowerShell or Command Prompt as Administrator and navigate to:`C:\Program Files\SplunkUniversalForwarder\bin`  
+
+Then run:
+`splunk.exe install app %HOMEPATH%\Downloads\splunkclouduf.spl`  
+
+When prompted, enter the Universal Forwarder username and password.  
+
+If the installation is successful, Splunk displays:
+`App %HOMEPATH%\Downloads\splunkclouduf.spl installed`   
+
+This completes the installation of the Splunk Cloud credentials package and prepares the Universal Forwarder to securely forward data to the Splunk Cloud environment.   
+
+![img]()  
+

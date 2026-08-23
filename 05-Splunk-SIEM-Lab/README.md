@@ -7,7 +7,7 @@ The projects in this section highlight practical Splunk capabilities, including 
 # Cases
 ## Case 01 — log ingestion security monitoring
 Centralized Windows Server, Sysmon, Apache, and PowerShell logs into Splunk for centralized security monitoring.
-- [View case 1]()
+- [View case 1](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-01-log-ingestion-security-monitoring)
 
 ## Case 02 — bruteforce password spraying detection
 ## Case 03 — powershell process execution detection
