@@ -65,5 +65,27 @@ This completes the installation of the Splunk Cloud credentials package and prep
 ![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-01-log-ingestion-security-monitoring/images/setup.png)  
 
 
+## Sysmon and Apache Log Ingestion
+To ingest Apache and Sysmon logs, we add their respective inputs to the existing inputs.conf file.
+For Apache, we use the following configuration:   
+
+[monitor://C:\xampp\apache\logs\access.log]   
+disabled = false   
+index = web   
+sourcetype = access_combined  
+
+Here, C:\xampp\apache\logs\access.log specifies the log file that the Universal Forwarder will monitor. The index = web setting determines which Splunk index will store the events, while sourcetype = access_combined identifies the data as Apache access logs and helps Splunk apply the appropriate parsing and field extraction.  
+
+
+For Sysmon, we configure the Windows Event Log input:
+[WinEventLog://Microsoft-Windows-Sysmon/Operational]  
+disabled = 0  
+index = sysmon  
+renderXml = false  
+sourcetype = sysmon  
+
+This configuration tells the Universal Forwarder to collect events from the Microsoft-Windows-Sysmon/Operational event log and forward them to the sysmon index. The sourcetype = sysmon identifies the events as Sysmon data, while renderXml = false controls how the Windows Event Log data is rendered before being forwarded.  
+
+After adding these configurations, the Universal Forwarder can collect both Apache web activity and Sysmon endpoint telemetry and forward them to Splunk Cloud.   
 
 
