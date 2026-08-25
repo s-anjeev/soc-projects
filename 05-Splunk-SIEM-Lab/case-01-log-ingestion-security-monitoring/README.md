@@ -112,12 +112,12 @@ After a successful login, click on the Search feature. The Search & Reporting in
 
 For very basic filtering, we can use the index and source type to narrow down the results.  
 
-**windows security event logs**
+**windows security event logs**  
 we can use `index="winserver" source="WinEventLog:Security"` to view only the Security logs collected from our Windows Server.   
 ![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-01-log-ingestion-security-monitoring/images/winserver.png)
 
 
-**Sysmon event logs**
+**Sysmon event logs**  
 Similarly we can use `index="sysmon"` to view sysmon only logs.  
 ![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-01-log-ingestion-security-monitoring/images/sysmon.png)   
 
