@@ -28,14 +28,14 @@ One of the first things to check is the ratio of failed to successful logins. A 
 
 **Query Used:**`index="winserver" source="WinEventLog:Security" host="EC2AMAZ-COTJ1IQ" (EventCode=4625 OR EventCode=4624) | stats count by EventCode`   
 During the last 24 hours, the server recorded 795 failed login attempts compared to 115 successful logins, resulting in a failed-to-successful login ratio of approximately 6.9:1.  
-![img]()  
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-02-Brute-Force-Attack-Detection/images/ratio.png)  
 
 ## Step 2 — Identify the Most Targeted Account
 **Query Used:**`index="winserver" source="WinEventLog:Security" host="EC2AMAZ-COTJ1IQ" EventCode=4625 | stats count by Account_Name | sort -count`   
 
 This query filters for failed Windows login attempts (EventCode 4625), counts the number of failed attempts for each username, and sorts the results in descending order, with the most targeted accounts appearing first.   
 The purpose of this query is to determine how many failed login attempts were made against each user account. The results can help us determine whether the activity is more consistent with a brute-force attack, password-spraying attack, or legitimate user mistakes.  
-![img]()  
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-02-Brute-Force-Attack-Detection/images/admin-ailed-login-2.png)  
    
 he Administrator account experienced 21 failed login attempts within the last 60 minutes. This level of repeated authentication failures is highly unusual and strongly indicates potential brute-force activity.   
 
@@ -53,7 +53,7 @@ he Administrator account experienced 21 failed login attempts within the last 60
    
 Three source IP addresses were identified as responsible for the 21 failed login attempts against the Administrator account. The IP address 95.142.115.135 generated the highest number of attempts with 13, followed by 223.188.150.143 with 6, and 137.184.27.190 with 2.   
 
-![img]()    
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-02-Brute-Force-Attack-Detection/images/sort-by-ip.png)    
 
 ## Step 4 — Reconstruct the Full Attack Timeline
 **What this does and why:** This pulls all admin account activities both failures and successes
@@ -65,7 +65,7 @@ On August 25th, repeated failed login attempts against the Administrator account
 The fact that the second attack continued even after the first IP had successfully authenticated suggests these may have been two separate brute-force attempts, rather than a single coordinated attack. The repeated failures and successful authentication make this activity highly suspicious.     
 
 The screenshot below shows the full timeline.  
-![img]()    
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-02-Brute-Force-Attack-Detection/images/timeline.png)    
 
 
 ## Step 5 — Investigate the Second IP Address (95.142.115.135)
