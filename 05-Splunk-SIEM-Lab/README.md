@@ -11,12 +11,12 @@ Centralized Windows Server, Sysmon, Apache, and PowerShell logs into Splunk for 
 
 ## Case 02 — Brute Force Attack Detection
 This lab demonstrates practical, hands-on experience in detecting multiple failed login attempts and identifying suspicious authentication behavior indicative of a credential brute-force attack.   
-- [View Case 2]()
+- [View Case 2](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-02-Brute-Force-Attack-Detection)
 - [Download Log file]()
 
 
-## Case 03 — powershell process execution detection
-## Case 04 — multi event account compromise investigation
+## Case 03 — Powershell Process Execution Detection
+## Case 04 — baseline of user and malicious behaviour maping.
 ## Case 04 — end to end soc incident investigation
 
 

@@ -1,4 +1,4 @@
-# Case 1 - Brute Force Attack Detection
+# Case 2 - Brute Force Attack Detection
 ## Summary
 An attacker repeatedly attempted to compromise the administrator account at Secorecode infotec. by guessing passwords until the correct credentials were identified. The attacker successfully authenticated to the server, resulting in a serious security breach. The incident could likely have been prevented by implementing basic security controls that were not in place.  
 
