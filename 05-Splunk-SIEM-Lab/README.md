@@ -20,5 +20,8 @@ This project demonstrates how PowerShell can be abused during a multi-stage atta
 - [View Case 2](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution)
 
 ## Case 04 — User Behavior Baseline and Malicious Activity Detection
+This project demonstrates user behavior baselining and behavioral analysis to identify deviations from normal activity and detect potentially suspicious or malicious behavior.
+- [View Case 2](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-04-User-Behavior-Baseline)
+
 
 ## Case 04 — Splunk SOC Dashboard

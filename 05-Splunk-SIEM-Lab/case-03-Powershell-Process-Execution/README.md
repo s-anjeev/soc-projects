@@ -30,7 +30,7 @@ Since we know this is a PowerShell execution, Windows Event ID 4688 (Process Cre
 
 We can use the username, workstation, and timestamp from the alert to narrow down the search in Splunk. This should reduce the amount of unrelated activity and help us quickly identify the process that generated the alert.  
 
-**SPL query: ** `index=Winserver host="WKSTN-041" EventCode=4688 New_Process_ID=0x5dc Account_Name="Administrator" earliest="09/06/2026:12:39:00" latest="09/06/2026:12:40:30" | table _time host Account_Name New_Process_ID New_Process_Name Creator_Process_ID Creator_Process_Name Process_Command_Line`  
+**SPL query:** `index=Winserver host="WKSTN-041" EventCode=4688 New_Process_ID=0x5dc Account_Name="Administrator" earliest="09/06/2026:12:39:00" latest="09/06/2026:12:40:30" | table _time host Account_Name New_Process_ID New_Process_Name Creator_Process_ID Creator_Process_Name Process_Command_Line`  
 
 ![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution/images/1st.png)  
 
