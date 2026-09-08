@@ -17,11 +17,11 @@ This lab demonstrates practical, hands-on experience in detecting multiple faile
 
 ## Case 03 — Powershell Process Execution Detection
 This project demonstrates how PowerShell can be abused during a multi-stage attack, including encoded command execution, payload download, system reconnaissance, and creation of a privileged local account.
-- [View Case 2](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution)
+- [View Case 3](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution)
 
 ## Case 04 — User Behavior Baseline and Malicious Activity Detection
 This project demonstrates user behavior baselining and behavioral analysis to identify deviations from normal activity and detect potentially suspicious or malicious behavior.
-- [View Case 2](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-04-User-Behavior-Baseline)
+- [View Case 4](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-04-User-Behavior-Baseline)
 
 
 ## Case 04 — Splunk SOC Dashboard
