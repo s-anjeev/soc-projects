@@ -32,6 +32,7 @@ We can use the username, workstation, and timestamp from the alert to narrow dow
 
 **SPL query:**  `source="Shreya_RDP_Windows_Logs.csv" host="WORKSTATION-SHREYA" index="main" sourcetype="csv" Source_IP="216.194.166.140" Username=Shreya Timestamp="2026-09-07 03:00:40" Event_ID=4624`   
 
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-04-User-Behavior-Baseline/images/1st.png)  
 
 This query revealed the event that generated the alert. The event log confirms that the user Shreya successfully logged in to the system from the IP address 216.194.166.140, geolocated to Los Angeles, USA, at 2026-09-07 03:00:40 AM.   
 
@@ -40,7 +41,9 @@ This query revealed the event that generated the alert. The event log confirms t
 The next step is IP threat intelligence because the IP is the most critical piece of information here. This IP is unknown to our system, and a user logging in from an uncommon IP needs to be investigated properly.   
 
 **Ip reputation check using abuseipdb**   
-The AbuseIPDB analysis revealed that this IP was reported 585 times, with an Abuse Confidence Score of 47%. The reported location is Los Angeles, California, USA. The IP has been widely detected performing unauthorized port scanning and attempting to break into systems.   
+The AbuseIPDB analysis revealed that this IP was reported 585 times, with an Abuse Confidence Score of 47%. The reported location is Los Angeles, California, USA. The IP has been widely detected performing unauthorized port scanning and attempting to break into systems.  
+
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-04-User-Behavior-Baseline/images/2nd.png)
 
 This IP address has been reported a total of 585 times from 33 distinct sources. 216.194.166.140 was first reported on January 6, 2023, and the most recent report was 6 hours ago.   
 
@@ -50,11 +53,13 @@ The output from AbuseIPDB is enough to categorize this activity as highly suspic
 ## Checking Authentication Logs Before and After the Login
 The next step is to check the authentication logs just before and after the suspicious login. The main goal is to identify any failed or successful authentication attempts associated with the user or the source IP around the login time.  
 
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-04-User-Behavior-Baseline/images/3rd.png)
+
 This will help us determine whether the successful login was an isolated event or whether it was preceded by multiple failed login attempts or followed by other suspicious authentication activity.    
 
 **SPL query:**  `index="main" source="Shreya_RDP_Windows_Logs.csv" sourcetype=csv_auth earliest="09/07/2026:02:55:40" latest="09/07/2026:03:05:40" | table time,Username,Hostname,Source_IP,Source_Location,Event_ID,Logon_Type,Result`    
 
-
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-04-User-Behavior-Baseline/images/4th.png)
 
 This investigation revealed that before the successful login attempt, there were four unsuccessful login attempts, with exactly 10 seconds between each of the five authentication requests. Performing authentication attempts at such precise and consistent intervals would be difficult for a human to do manually and strongly suggests an automated password-guessing attempt. On the fifth attempt, the authentication was successful, indicating that the attacker may have successfully gained access to the user's account.     
 
@@ -89,7 +94,7 @@ This confirms that the login was not performed by the legitimate user and signif
 | Attack Pattern | `4625 → 4625 → 4625 → 4625 → 4624` | Multiple failed attempts followed by successful authentication |
 | IP Reputation | `585 reports / 33 sources` | Reported on AbuseIPDB with 47% Abuse Confidence Score |
 
-**Suspicious Behavior** -> `4 failed → 1 successful RDP login` Four failed authentication attempts at exactly 10-second intervals followed by a successful RDP login.  
+**Suspicious Behavior** - `4 failed → 1 successful RDP login` Four failed authentication attempts at exactly 10-second intervals followed by a successful RDP login.  
 The user confirmed that the login was not performed by her, and the source IP has a suspicious reputation, with 585 reports from 33 distinct sources on AbuseIPDB.  
 
 ## Attack Timeline

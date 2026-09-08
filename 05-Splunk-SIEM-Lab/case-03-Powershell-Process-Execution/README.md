@@ -53,11 +53,11 @@ The Splunk query identified a PowerShell process executed by the `Administrator`
 **Lets Decode Executed Command Using cyberchef.io**    
 The decoded PowerShell command revealed an attempt to download `malware.exe` from a GitHub repository and save it to `C:\Windows\Temp\malware.exe`. The use of `-EncodedCommand`provided an additional layer of obfuscation.   
 
-![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution/images/2st.png)   
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution/images/2nd.png)   
 
 Actual Command executed was `Invoke-WebRequest -Uri "https://github.com/s-anjeev/soc-projects/blob/main/03-Malware-Analysis/case-01-powershell-dropper/sample/malware.exe" -OutFile "C:\Windows\Temp\malware.exe"` this is confirmand by Event Code `4104` and `cyberchef`.
 
-![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution/images/3st.png)   
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-03-Powershell-Process-Execution/images/3rd.png)   
 
 **Key Findings**  
 - **PowerShell Web Request:** The command uses `Invoke-WebRequest` to retrieve a file from a remote GitHub repository.
