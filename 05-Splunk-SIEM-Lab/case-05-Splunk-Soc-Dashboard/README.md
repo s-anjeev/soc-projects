@@ -25,7 +25,7 @@ This panel helps SOC analysts quickly compare the ratio of successful and failed
 
 **SPL Query:** `index="winserver" source="WinEventLog:Security" host="WKSTN-041" (EventCode=4625 OR EventCode=4624) | eval Logon_Status=if(EventCode=4624,"Successful Logon","Failed Logon") | stats count by Logon_Status`   
 
-![img](https://github.com/s-anjeev)   
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-05-Splunk-Soc-Dashboard/images/1.png)   
 
 ### Panel 2
 The second panel uses a table to display the number of failed login attempts associated with each source IP address, with the IP addresses generating the highest number of failed attempts listed at the top.   
@@ -33,15 +33,15 @@ This helps SOC analysts quickly identify potentially suspicious IP addresses and
 
 **SPL Query:** `index="winserver" source="WinEventLog:Security" host="WKSTN-041" EventCode=4625 | stats count as Failed_Logons by Source_Network_Address | sort - Failed_Logons`   
 
-![img](https://github.com/s-anjeev)
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-05-Splunk-Soc-Dashboard/images/2.png)
 
 ### Panel 3
 The third widget is also a table that represents the number of failed login attempts per computer, grouped by username. This helps SOC analysts identify which user accounts are being targeted on specific computers. A high number of failed attempts against multiple usernames on the same computer may indicate password-spraying or brute-force activity and can help analysts prioritize further investigation.   
 
 **SPL Query:** `index="winserver" source="WinEventLog:Security" EventCode=4625 | stats count as Failed_Logons by ComputerName, Account_Name | sort - Failed_Logons`   
 
-![img](https://github.com/s-anjeev)   
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-05-Splunk-Soc-Dashboard/images/3.png)   
 
 
 **Complete SOC Dashboard**  
-![img](https://github.com/s-anjeev)  
+![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-05-Splunk-Soc-Dashboard/images/DASHBOARD.png)    

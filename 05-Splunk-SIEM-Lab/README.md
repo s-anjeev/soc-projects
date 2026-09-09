@@ -24,6 +24,6 @@ This project demonstrates user behavior baselining and behavioral analysis to id
 - [View Case 4](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-04-User-Behavior-Baseline)
 
 
-## Case 04 — Splunk SOC Dashboard
+## Case 05 — Splunk SOC Dashboard
 In this project, we will create a Splunk SOC Dashboard designed for practical L1/L2 SOC operations.  
-- [View Case 5](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-04-User-Behavior-Baseline) 
+- [View Case 5](https://github.com/s-anjeev/soc-projects/tree/main/05-Splunk-SIEM-Lab/case-05-Splunk-Soc-Dashboard) 
