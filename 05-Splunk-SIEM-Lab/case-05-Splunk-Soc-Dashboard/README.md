@@ -23,7 +23,12 @@ This SOC dashboard is designed to monitor and detect authentication-related secu
 The first panel of this SOC dashboard uses a bar chart to display the total number of failed and successful login attempts within a specific time period.   
 This panel helps SOC analysts quickly compare the ratio of successful and failed login attempts. A significantly higher number of failed attempts compared to successful attempts may indicate a brute-force or password-spraying attack.    
 
-**SPL Query:** `index="winserver" source="WinEventLog:Security" host="WKSTN-041" (EventCode=4625 OR EventCode=4624) | eval Logon_Status=if(EventCode=4624,"Successful Logon","Failed Logon") | stats count by Logon_Status`   
+**SPL Query:**   
+```spl
+index="winserver" source="WinEventLog:Security" host="WKSTN-041" (EventCode=4625 OR EventCode=4624)
+| eval Logon_Status=if(EventCode=4624,"Successful Logon","Failed Logon")
+| stats count by Logon_Status
+```   
 
 ![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-05-Splunk-Soc-Dashboard/images/1.png)   
 
@@ -44,7 +49,12 @@ index="winserver" source="WinEventLog:Security" host="WKSTN-041" EventCode=4625
 ### Panel 3
 The third widget is also a table that represents the number of failed login attempts per computer, grouped by username. This helps SOC analysts identify which user accounts are being targeted on specific computers. A high number of failed attempts against multiple usernames on the same computer may indicate password-spraying or brute-force activity and can help analysts prioritize further investigation.   
 
-**SPL Query:** `index="winserver" source="WinEventLog:Security" EventCode=4625 | stats count as Failed_Logons by ComputerName, Account_Name | sort - Failed_Logons`   
+**SPL Query:**  
+```spl
+index="winserver" source="WinEventLog:Security" EventCode=4625
+| stats count as Failed_Logons by ComputerName, Account_Name
+| sort - Failed_Logons
+```   
 
 ![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-05-Splunk-Soc-Dashboard/images/3.png)   
 
