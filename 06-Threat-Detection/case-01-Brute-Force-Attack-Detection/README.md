@@ -38,11 +38,11 @@ index="winserver" source="WinEventLog:Security" EventCode=4625
 ## Test Results
 The query was run against the brute force investigation log file. The screenshot below shows the detection firing on 1  minute windows confirming the rule works correctly.
 
-![img](https://github.com/s-anjeev/soc-projects/tree/main/06-Threat-Detection/case-01-Brute-Force-Attack-Detection/images/1.png)   
+![img](https://github.com/s-anjeev/soc-projects/blob/main/06-Threat-Detection/case-01-Brute-Force-Attack-Detection/images/1.png)   
 
 ## Alert Action
 When the alert is triggered, an email notification is automatically sent to the SOC analyst for investigation.
-![img](https://github.com/s-anjeev/soc-projects/tree/main/06-Threat-Detection/case-01-Brute-Force-Attack-Detection/images/2.png)  
+![img](https://github.com/s-anjeev/soc-projects/blob/main/06-Threat-Detection/case-01-Brute-Force-Attack-Detection/images/2.png)  
 
 
 ## Response Actions When Alert Fires
