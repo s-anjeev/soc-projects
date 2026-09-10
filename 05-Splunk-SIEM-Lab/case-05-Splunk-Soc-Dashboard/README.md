@@ -31,7 +31,13 @@ This panel helps SOC analysts quickly compare the ratio of successful and failed
 The second panel uses a table to display the number of failed login attempts associated with each source IP address, with the IP addresses generating the highest number of failed attempts listed at the top.   
 This helps SOC analysts quickly identify potentially suspicious IP addresses and investigate authentication activity that may be related to brute-force or password-spraying attacks.   
 
-**SPL Query:** ```index="winserver" source="WinEventLog:Security" host="WKSTN-041" EventCode=4625 | stats count as Failed_Logons by Source_Network_Address | sort - Failed_Logons```   
+**SPL Query:**   
+
+```spl
+index="winserver" source="WinEventLog:Security" host="WKSTN-041" EventCode=4625
+| stats count as Failed_Logons by Source_Network_Address
+| sort - Failed_Logons
+```   
 
 ![img](https://github.com/s-anjeev/soc-projects/blob/main/05-Splunk-SIEM-Lab/case-05-Splunk-Soc-Dashboard/images/2.png)
 
